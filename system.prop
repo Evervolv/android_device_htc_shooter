@@ -1,0 +1,44 @@
+# system.prop for shooter
+#
+
+ro.sf.lcd_density=240
+
+debug.fb.rgb565 = 0
+
+#C2D
+debug.composition.type = c2d
+
+rild.libpath=/system/lib/libhtc_ril.so
+ro.ril.def.preferred.network = 4
+ro.telephony.default_network = 4
+net.tcp.buffersize.wimax = 4096,221184,524288,4096,16384,110208
+
+
+
+wifi.interface=eth0
+wifi.supplicant_scan_interval=15
+
+
+# The OpenGL ES API level that is natively supported by this device.
+# This is a 16.16 fixed point number
+ro.opengles.version = 131072
+
+# This is a high density device with more memory, so larger vm heaps for it.
+# Change to 32m, due to 2.3.3 GB already change to 32m
+dalvik.vm.heapsize=32m
+
+# For the default value of agps
+ro.ril.def.agps.mode = 2
+
+#Modify MTU from 1500 to 1472 on 3G network
+ro.ril.set.mtu1472 = 1
+
+# Make cdma voicemail the default voicemail number.
+ro.cdma.voicemail.number = mine
+
+mobiledata.interfaces=rmnet0,gprs,wimax0
+# For emmc phone storage
+ro.phone_storage = 0
+
+# Make rmt_storage start at init
+ro.emmc = 1
