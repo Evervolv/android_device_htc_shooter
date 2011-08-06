@@ -4,10 +4,22 @@ on emmc
     mkdir /data 0771 system system
     mkdir /cache 0770 system cache
     mkdir /devlog 0700 root root
-    mount ext4 /dev/block/mmcblk0p23 /system wait ro barrier=1
-    mount ext4 /dev/block/mmcblk0p24 /data wait noatime nosuid nodev barrier=1 noauto_da_alloc
-    mount ext4 /dev/block/mmcblk0p25 /cache wait noatime nosuid nodev barrier=1
-    mount ext4 /dev/block/mmcblk0p28 /devlog wait noatime nosuid nodev barrier=1
+    devwait emmc@system
+	mount ext4 emmc@system /system ro
+        #mount ext4 emmc@system /system remount noauto_da_alloc
+        #mount ext4 emmc@system /system remount ro
+    devwait emmc@userdata
+	mount ext4 emmc@userdata /data noatime nosuid nodev nodelalloc
+        #mount ext4 emmc@userdata /data remount noauto_da_alloc
+        #mount ext4 emmc@userdata /data remount noatime nosuid nodev
+    devwait emmc@cache
+	mount ext4 emmc@cache /cache noatime nosuid nodev nodelalloc
+        #mount ext4 emmc@cache /cache remount noauto_da_alloc
+        #mount ext4 emmc@cache /cache remount noatime nosuid nodev
+    devwait emmc@devlog
+	mount ext4 emmc@devlog /devlog noatime nosuid nodev nodelalloc
+        #mount ext4 emmc@devlog /devlog remount noauto_da_alloc
+        #mount ext4 emmc@devlog /devlog remount noatime nosuid nodev
 
 
 # 8x60: mount radio partition and create links for modem/q6 firmwares
