@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011 The CyanogenMod Project
+# Copyright (C) 2011 The Evervolv Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -31,6 +31,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_COPY_FILES += \
     device/htc/shooter/init:root/init \
     device/htc/shooter/init.rc:root/init.rc \
+    device/htc/shooter/ueventd.rc:root/ueventd..rc \
     device/htc/shooter/init.shooter.rc:root/init.shooter.rc \
     device/htc/shooter/ueventd.shooter.rc:root/ueventd.shooter.rc
 
@@ -63,15 +64,12 @@ PRODUCT_COPY_FILES += \
     frameworks/base/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
     frameworks/base/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml
 
-#PRODUCT_PACKAGES += \
+PRODUCT_PACKAGES += \
 #    gps.shooter \
 #    librs_jni \
 #    gralloc.msm8660 \
 #    copybit.msm8660 \
 #    overlay.default \
-#    com.android.future.usb.accessory
-
-PRODUCT_PACKAGES += \
     librs_jni \
 #    libOmxCore \
     libOmxVenc \
@@ -144,9 +142,6 @@ PRODUCT_COPY_FILES += \
 
 
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
-
-# The gps config appropriate for this device
-$(call inherit-product, device/common/gps/gps_eu_supl.mk)
 
 DEVICE_PACKAGE_OVERLAYS += device/htc/shooter/overlay
 
