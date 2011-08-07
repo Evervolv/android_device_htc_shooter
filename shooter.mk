@@ -27,8 +27,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.lockprof.threshold=500 \
     dalvik.vm.dexopt-flags=m=y
 
-#TODO ---- What do we need to do to not use a static init.rc?
+#TODO ---- What do we need to do to not use a static init & init.rc?
 PRODUCT_COPY_FILES += \
+    device/htc/shooter/init:root/init \
     device/htc/shooter/init.rc:root/init.rc \
     device/htc/shooter/init.shooter.rc:root/init.shooter.rc \
     device/htc/shooter/ueventd.shooter.rc:root/ueventd.shooter.rc

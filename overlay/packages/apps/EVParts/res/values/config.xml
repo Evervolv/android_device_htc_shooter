@@ -2,5 +2,4 @@
 <resources>
     <!-- Whether or not to display the trackball settings -->
     <bool name="has_trackball">false</bool>
-    <bool name="has_dual_notification_led">true</bool>
 </resources>
