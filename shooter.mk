@@ -31,7 +31,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_COPY_FILES += \
     device/htc/shooter/init:root/init \
     device/htc/shooter/init.rc:root/init.rc \
-    device/htc/shooter/ueventd.rc:root/ueventd..rc \
+    device/htc/shooter/ueventd.rc:root/ueventd.rc \
     device/htc/shooter/init.shooter.rc:root/init.shooter.rc \
     device/htc/shooter/ueventd.shooter.rc:root/ueventd.shooter.rc
 
