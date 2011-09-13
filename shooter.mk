@@ -65,17 +65,18 @@ PRODUCT_COPY_FILES += \
     frameworks/base/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml
 
 PRODUCT_PACKAGES += \
+    librs_jni \
+    libOmxVenc \
+    libOmxVdec \
+    com.android.future.usb.accessory
 #    gps.shooter \
 #    librs_jni \
 #    gralloc.msm8660 \
 #    copybit.msm8660 \
 #    overlay.default \
-    librs_jni \
 #    libOmxCore \
-    libOmxVenc \
-    libOmxVdec \
 #    libaudio \
-    com.android.future.usb.accessory
+
 
 # Keylayouts
 PRODUCT_COPY_FILES += \
@@ -127,8 +128,6 @@ PRODUCT_COPY_FILES += \
     device/htc/shooter/modules/bcm4329.ko:system/lib/modules/bcm4329.ko \
     device/htc/shooter/modules/sequans_sdio.ko:system/lib/modules/sequans_sdio.ko \
     device/htc/shooter/modules/wimaxuart.ko:system/lib/modules/wimaxuart.ko \
-    device/htc/shooter/modules/spidev.ko:system/lib/modules/spidev.ko  \
-    device/htc/shooter/modules/lcd.ko:system/lib/modules/lcd.ko \
     device/htc/shooter/modules/wimaxdbg.ko:system/lib/modules/wimaxdbg.ko
 
 # we have enough storage space to hold precise GC data
@@ -139,7 +138,7 @@ PRODUCT_LOCALES += hdpi
 
 PRODUCT_COPY_FILES += \
     device/htc/shooter/vold.fstab:system/etc/vold.fstab \
-    device/htc/speedy/apns-conf.xml:system/etc/apns-conf.xml
+    device/htc/shooter/apns-conf.xml:system/etc/apns-conf.xml
 
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
