@@ -1,32 +1,33 @@
+on emmc
 
-
-on boot
-    mount debugfs /sys/kernel/debug /sys/kernel/debug
-
-    service post-boot /system/bin/sh /system/etc/init.post_boot.sh
-    user root
-    oneshot
-
-on early-fs
     mkdir /system
     mkdir /data 0771 system system
     mkdir /cache 0770 system cache
     mkdir /devlog 0700 root root
+    devwait emmc@system
+	mount ext4 emmc@system /system ro
+        #mount ext4 emmc@system /system remount noauto_da_alloc
+        #mount ext4 emmc@system /system remount ro
+    devwait emmc@userdata
+	mount ext4 emmc@userdata /data noatime nosuid nodev nodelalloc
+        #mount ext4 emmc@userdata /data remount noauto_da_alloc
+        #mount ext4 emmc@userdata /data remount noatime nosuid nodev
+    devwait emmc@cache
+	mount ext4 emmc@cache /cache noatime nosuid nodev nodelalloc
+        #mount ext4 emmc@cache /cache remount noauto_da_alloc
+        #mount ext4 emmc@cache /cache remount noatime nosuid nodev
+    devwait emmc@devlog
+	mount ext4 emmc@devlog /devlog noatime nosuid nodev nodelalloc
+        #mount ext4 emmc@devlog /devlog remount noauto_da_alloc
+        #mount ext4 emmc@devlog /devlog remount noatime nosuid nodev
 
-    mount ext4 /dev/block/mmcblk0p23 /system wait ro data=ordered noauto_da_alloc
-    mount ext4 /dev/block/mmcblk0p24 /data wait noatime nosuid nodev data=ordered noauto_da_alloc
-    mount ext4 /dev/block/mmcblk0p25 /cache wait noatime nosuid nodev data=ordered noauto_da_alloc
-    mount ext4 /dev/block/mmcblk0p28 /devlog wait noatime nosuid nodev data=ordered noauto_da_alloc
 
-    devwait /dev/block/mmcblk0p18
-
-on fs
-    rm /vendor
-    #8x60: mount radio partition and create links for modem/q6 firmwares
-    mkdir /vendor 0771 system system
-    mkdir /vendor/firmware 0771 system system
+# 8x60: mount radio partition and create links for modem/q6 firmwares
+    mkdir /vendor               0771 system system
+    mkdir /vendor/firmware      0771 system system
     mkdir /vendor/firmware/misc 0771 system system
-    mount vfat /dev/block/mmcblk0p18 /vendor/firmware/misc ro shortname=lower
+    devwait emmc@radio
+    mount vfat emmc@radio /vendor/firmware/misc ro shortname=lower
     symlink /vendor/firmware/misc/q6.b07 /vendor/firmware/q6.b07
     symlink /vendor/firmware/misc/q6.b06 /vendor/firmware/q6.b06
     symlink /vendor/firmware/misc/q6.b05 /vendor/firmware/q6.b05
@@ -48,7 +49,10 @@ on fs
     symlink /vendor/firmware/misc/modem.b00 /vendor/firmware/modem.b00
     symlink /vendor/firmware/misc/modem.mdt /vendor/firmware/modem.mdt
 
+on early-init
+    device /dev/block/mmcblk0p17 0460 radio diag
 
+on init
     # double check the perms and set owner
     chown root root /devlog
     chmod 0700 /devlog
@@ -67,16 +71,12 @@ on fs
     chown system system /dev/mpuirq
     chown system system /dev/timerirq
 
+on boot
     mkdir /data/radio 0770 radio radio
-
-    #wifi
-    mkdir /data/misc 1771 system misc
     mkdir /data/misc/wifi 0770 wifi wifi
     mkdir /data/misc/wifi/sockets 0770 wifi wifi
     mkdir /data/misc/dhcp 0770 dhcp dhcp
     chown dhcp dhcp /data/misc/dhcp
-
-    #wimax
     mkdir /data/misc/wimax 0770 wimax wimax
     mkdir /data/misc/wimax/sockets 0770  wimax wimax
     mkdir /data/wimax/ 0770  system system
@@ -86,22 +86,6 @@ on fs
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
     chmod 0660                /sys/class/rfkill/rfkill0/state
-
-    # bluetooth MAC address programming
-    chown bluetooth bluetooth /sys/module/htc_bdaddress/parameters/bdaddr
-    setprop ro.bt.bdaddr_path /sys/module/htc_bdaddress/parameters/bdaddr
-
-    # Permissions for Liblights.
-    chown system system /sys/class/leds/green/brightness
-    chown system system /sys/class/leds/green/blink
-    chown system system /sys/class/leds/amber/brightness
-    chown system system /sys/class/leds/amber/blink
-    chown system system /sys/class/leds/button-backlight/brightness
-    chown system system /sys/class/leds/lcd-backlight/brightness
-
-    # flashlight
-    chown system camera /sys/class/leds/flashlight/brightness
-    chmod 0660          /sys/class/leds/flashlight/brightness
 
     # for display
     chown system system /sys/devices/virtual/graphics/fb1/format_3d 
@@ -145,7 +129,6 @@ on fs
     mkdir /data/DxDrm/Credentials
     mkdir /data/DxDrm/Credentials/PlayReady
     chmod 555 /data/DxDrm
-    mkdir /sdcard/download
     copy /etc/DxPrdyProvisionObf.pkg /data/DxDrm/Credentials/PlayReady/DxPrdyProvisionObf.pkg
     copy /etc/DxDrmConfig_Server.txt /data/DxDrm/DxDrmConfig_Server.txt
 
@@ -182,17 +165,16 @@ service bugreport /system/bin/dumpstate -d -v -o /sdcard/bugreports/bugreport
     oneshot
     keycodes 114 115
 
-service hciattach /system/bin/logwrapper /system/bin/brcm_patchram_plus --enable_hci --baudrate 3000000 --patchram /etc/firmware/BCM4329B1_002.002.023.0589.0632.hcd /dev/ttyHS0
-    user bluetooth
-    group bluetooth net_bt_admin
-    disabled
-    oneshot
+#service hciattach /system/bin/brcm_patchram_plus --enable_hci --patchram /etc/firmware/bcm4329.hcd /dev/ttyHS0
+#    user bluetooth
+#    group bluetooth net_bt_admin
+#    disabled
 
 # Make sure we startup btld before hcid
 # Set target address to emulator host loopback IF
 # Limit baudrate to 460800 to ensure reliable uart operation
 #service btld /system/bin/logwrapper /system/bin/btld -hwtun 10.0.2.2 -hb 460800 3000000 -lpm 1
-service btld /system/bin/logwrapper /system/bin/btld -hb 3000000
+service btld /system/bin/logwrapper /system/bin/btld -lpm 1 -hb 3000000
     user root
     group bluetooth net_bt_admin
     disabled
@@ -359,6 +341,14 @@ service hdmid /system/bin/hdmid
 service htcbatt /system/bin/htcbatt
     user root
 
+service dcvs0 /system/bin/dcvs --cpu=0 --slacktime=16
+    user root
+    disabled
+
+service dcvs1 /system/bin/dcvs --cpu=1 --slacktime=16
+    user root
+    disabled
+
 service mpdecision /system/bin/mpdecision --no_sleep --avg_comp
     user root
     disabled
@@ -368,16 +358,16 @@ on property:init.svc.bootanim=stopped
     start mpdecision
 
 service htc_ebdlogd /system/bin/htc_ebdlogd -s -k -P 7
-	user root
-    	disabled
-	oneshot
-        ioprio idle 0
+    user root
+    disabled
+    oneshot
+    ioprio idle 0
 
 service htc_ebdlogd_rel /system/bin/htc_ebdlogd -s -k
-	user root
-    	disabled
-	oneshot
-        ioprio idle 0
+    user root
+    disabled
+    oneshot
+    ioprio idle 0
 
 service 3d_camera /system/bin/3D_calibration
     user root
