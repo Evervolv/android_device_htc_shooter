@@ -33,7 +33,8 @@ PRODUCT_COPY_FILES += \
     device/htc/shooter/init.rc:root/init.rc \
     device/htc/shooter/ueventd.rc:root/ueventd.rc \
     device/htc/shooter/init.shooter.rc:root/init.shooter.rc \
-    device/htc/shooter/ueventd.shooter.rc:root/ueventd.shooter.rc
+    device/htc/shooter/ueventd.shooter.rc:root/ueventd.shooter.rc \
+    device/htc/shooter/default.prop:root/default.prop
 
 ## (2) Also get non-open-source GSM-specific aspects if available
 $(call inherit-product-if-exists, vendor/htc/shooter/shooter-vendor.mk)
