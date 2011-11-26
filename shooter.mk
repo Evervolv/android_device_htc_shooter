@@ -36,6 +36,10 @@ PRODUCT_COPY_FILES += \
     device/htc/shooter/ueventd.shooter.rc:root/ueventd.shooter.rc \
     device/htc/shooter/default.prop:root/default.prop
 
+#Add toushcreen config file
+PRODUCT_COPY_FILES += \
+    device/htc/shooter/atmel-touchscreen.idc:system/usr/idc/atmel-touchscreen.idc
+
 ## (2) Also get non-open-source GSM-specific aspects if available
 $(call inherit-product-if-exists, vendor/htc/shooter/shooter-vendor.mk)
 
