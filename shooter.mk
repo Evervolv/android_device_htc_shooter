@@ -14,6 +14,10 @@
 # limitations under the License.
 #
 
+
+PRODUCT_AAPT_CONFIG := normal hdpi
+PRODUCT_AAPT_PREF_CONFIG := hdpi
+
 # The gps config appropriate for this device
 PRODUCT_COPY_FILES += \
     device/htc/shooter/gps.conf:system/etc/gps.conf
@@ -144,8 +148,8 @@ PRODUCT_COPY_FILES += \
 # we have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
 
-# device uses high-density artwork where available
-PRODUCT_LOCALES += hdpi
+
+PRODUCT_LOCALES += en
 
 PRODUCT_COPY_FILES += \
     device/htc/shooter/vold.fstab:system/etc/vold.fstab \
