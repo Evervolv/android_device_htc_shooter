@@ -33,8 +33,7 @@ PRODUCT_COPY_FILES += \
     device/htc/shooter/init.rc:root/init.rc \
     device/htc/shooter/ueventd.rc:root/ueventd.rc \
     device/htc/shooter/init.shooter.rc:root/init.shooter.rc \
-    device/htc/shooter/ueventd.shooter.rc:root/ueventd.shooter.rc \
-    device/htc/shooter/default.prop:root/default.prop
+    device/htc/shooter/ueventd.shooter.rc:root/ueventd.shooter.rc
 
 #Add toushcreen config file
 PRODUCT_COPY_FILES += \
@@ -130,17 +129,17 @@ PRODUCT_COPY_FILES += \
 
 # Wifi Module
 PRODUCT_COPY_FILES += \
-    device/htc/supersonic/modules/bcm4329.ko:system/lib/modules/bcm4329.ko \
-    device/htc/supersonic/modules/sequans_sdio.ko:system/lib/modules/sequans_sdio.ko \
-    device/htc/supersonic/modules/auth_rpcgss.ko:system/lib/modules/auth_rpcgss.ko \
-    device/htc/supersonic/modules/cifs.ko:system/lib/modules/cifs.ko \
-    device/htc/supersonic/modules/lockd.ko:system/lib/modules/lockd.ko \
-    device/htc/supersonic/modules/nfs.ko:system/lib/modules/nfs.ko \
-    device/htc/supersonic/modules/rpcsec_gss_krb5.ko:system/lib/modules/rpcsec_gss_krb5.ko \
-    device/htc/supersonic/modules/sunrpc.ko:system/lib/modules/sunrpc.ko \
-    device/htc/supersonic/modules/tun.ko:system/lib/modules/tun.ko \
-    device/htc/supersonic/modules/wimaxdbg.ko:system/lib/modules/wimaxdbg.ko \
-    device/htc/supersonic/modules/wimaxuart.ko:system/lib/modules/wimaxuart.ko
+    device/htc/shooter/modules/bcm4329.ko:system/lib/modules/bcm4329.ko \
+    device/htc/shooter/modules/sequans_sdio.ko:system/lib/modules/sequans_sdio.ko \
+    device/htc/shooter/modules/auth_rpcgss.ko:system/lib/modules/auth_rpcgss.ko \
+    device/htc/shooter/modules/cifs.ko:system/lib/modules/cifs.ko \
+    device/htc/shooter/modules/lockd.ko:system/lib/modules/lockd.ko \
+    device/htc/shooter/modules/nfs.ko:system/lib/modules/nfs.ko \
+    device/htc/shooter/modules/rpcsec_gss_krb5.ko:system/lib/modules/rpcsec_gss_krb5.ko \
+    device/htc/shooter/modules/sunrpc.ko:system/lib/modules/sunrpc.ko \
+    device/htc/shooter/modules/tun.ko:system/lib/modules/tun.ko \
+    device/htc/shooter/modules/wimaxdbg.ko:system/lib/modules/wimaxdbg.ko \
+    device/htc/shooter/modules/wimaxuart.ko:system/lib/modules/wimaxuart.ko
 
 # we have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
