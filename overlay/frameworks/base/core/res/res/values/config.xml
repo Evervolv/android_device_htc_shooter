@@ -20,13 +20,6 @@
 <!-- These resources are around just to allow their values to be customized
      for different hardware and product builds. -->
 <resources>
-
-    <!-- Flag indicating whether the surface flinger has limited
-         alpha compositing functionality in hardware.  If set, the window
-         manager will disable alpha trasformation in animations where not
-         strictly needed. -->
-    <bool name="config_sf_limitedAlpha">true</bool>
-
     <!-- Flag indicating whether we should enable the automatic brightness in Settings.
          config_hardware_automatic_brightness_available is not set, so we will use software implementation -->
     <bool name="config_automatic_brightness_available">true</bool>
@@ -132,11 +125,13 @@
     <!-- An Array of "[Connection name],[ConnectivityManager connection type],
          [associated radio-type],[priority]  -->
     <string-array translatable="false" name="networkAttributes">
-        <item>"wifi,1,1,1,-1,true"</item>
-        <item>"mobile,0,0,0,-1,true"</item>
-        <item>"mobile_mms,2,0,2,60000,true"</item>
-        <item>"mobile_supl,3,0,2,60000,true"</item>
-        <item>"mobile_hipri,5,0,3,60000,true"</item>
+        <item>"wifi,1,1,1"</item>
+        <item>"wimax,6,6,2"</item>
+        <item>"mobile,0,0,0"</item>
+        <item>"mobile_mms,2,0,2"</item>
+        <item>"mobile_supl,3,0,2"</item>
+        <item>"mobile_dun,4,0,4"</item>
+        <item>"mobile_hipri,5,0,3"</item>
     </string-array>
 
     <!-- This string array should be overridden by the device to present a list of radio
@@ -169,15 +164,12 @@
         <item>40</item>
     </integer-array>
 
-    <!-- Component name of the default wallpaper. This will be ImageWallpaper if not 
-         specified -->
-    <string name="default_wallpaper_component">@null</string>
-
     <!-- Enable use of power animations -->
     <bool name="config_animateScreenLights">false</bool>
 
     <!-- If this is true, the screen will come on when you unplug usb/power/whatever. -->
     <bool name="config_unplugTurnsOnScreen">true</bool>
+    
     
     <!-- Boolean indicating whether the wifi chipset has dual frequency band support -->
     <bool translatable="false" name="config_wifi_dual_band_support">false</bool>
