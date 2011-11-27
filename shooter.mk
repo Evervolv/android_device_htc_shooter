@@ -157,7 +157,7 @@ DEVICE_PACKAGE_OVERLAYS += device/htc/shooter/overlay
 
 
 ifeq ($(TARGET_PREBUILT_KERNEL),)
-	LOCAL_KERNEL := device/htc/shooter/kernel
+	LOCAL_KERNEL := device/htc/shooter/zImage
 else
 	LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
 endif
