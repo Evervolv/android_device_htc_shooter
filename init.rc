@@ -24,11 +24,11 @@ loglevel 3
 	
 # Backward compatibility
     symlink /system/etc /etc
-    symlink /sys/kernel/debug /d
+    mount debugfs /sys/kernel/debug /sys/kernel/debug
 
 # Right now vendor lives on the same filesystem as system,
 # but someday that may change.
-#    symlink /system/vendor /vendor
+    symlink /system/vendor /vendor
 
 # create mountpoints
     mkdir /mnt 0775 root system
@@ -70,8 +70,9 @@ loglevel 3
     write /proc/sys/kernel/panic_on_oops 1
     write /proc/sys/kernel/hung_task_timeout_secs 0
     write /proc/cpu/alignment 4
-    write /proc/sys/kernel/sched_latency_ns 10000000
-    write /proc/sys/kernel/sched_wakeup_granularity_ns 2000000
+    write /proc/sys/kernel/sched_latency_ns 5000000
+    write /proc/sys/kernel/sched_wakeup_granularity_ns 100000
+    write /proc/sys/kernel/sched_min_granularity_ns 100000
     write /proc/sys/kernel/sched_compat_yield 1
     write /proc/sys/kernel/sched_child_runs_first 0
 
@@ -196,18 +197,6 @@ on post-fs
     chown system system /data/data
     chmod 0771 /data/data
 
-    # allow net_raw to have access to /dev/socket directory
-    chown root net_raw /dev/socket
-    chmod 0775 /dev/socket
-
-    # allow system to modify cpufreq control files
-    chown root system /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
-    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
-    chown root system /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
-    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
-    chown root system /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
-    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
-
 on boot
 # basic network init
     ifup lo
@@ -249,14 +238,19 @@ on boot
 
     write /proc/sys/vm/overcommit_memory 1
     write /proc/sys/vm/min_free_order_shift 4
-    write /sys/module/lowmemorykiller/parameters/minfree 2048,3072,4096,6144,7168,8192
+    write /proc/sys/vm/oom_dump_tasks 1
+    write /sys/module/lowmemorykiller/parameters/minfree 3584,4096,8192,10240,11264,12288
+    write /sys/module/lowmemorykiller/parameters/minfile 3584,4096,8192,10240,11264,12288
+    write /sys/module/lowmemorykiller/parameters/check_filepages 1
 
     # Set init its forked children's oom_adj.
     write /proc/1/oom_adj -16
 
     # Tweak background writeout
     write /proc/sys/vm/dirty_expire_centisecs 200
-    write /proc/sys/vm/dirty_background_ratio  5
+    write /proc/sys/vm/dirty_background_bytes 1024000
+    write /proc/sys/vm/dirty_bytes 20480000
+    write /proc/sys/vm/highmem_is_dirtyable 1
 
     # Permissions for System Server and daemons.
     chown radio system /sys/android_power/state
@@ -448,7 +442,7 @@ service ril-daemon /system/bin/rild
     socket rild-htc-dmagent stream 660 radio system
     socket rild-htc-simapi stream 660 radio system
     user root
-    group radio cache inet misc audio sdcard_rw net_admin net_raw
+    group radio cache inet misc audio sdcard_rw
 
 service ril-ims-daemon /system/bin/rild_ims
     socket rild-ims stream 660 root radio
@@ -465,16 +459,23 @@ service zygote /system/bin/app_process -Xzygote /system/bin --zygote --start-sys
 service media /system/bin/mediaserver
     user media
     group system audio camera graphics inet net_bt net_bt_admin net_raw  qcom_oncrpc
-    ioprio rt 4
+	ioprio rt 4
+
+service fusermount /system/bin/fusermount -u /data/htcfs
+    disabled
+    oneshot
+
+service htcfs /system/bin/htcfs /data/htcfs -f -o allow_other
+    onrestart restart fusermount
 
 service bootanim /system/bin/bootanimation
     user graphics
-    group graphics
+    group system audio graphics
     disabled
     oneshot
 
 service dbus /system/bin/dbus-daemon --system --nofork
-    socket dbus stream 660 bluetooth bluetooth
+    socket dbus stream 666 bluetooth bluetooth
     user bluetooth
     group bluetooth net_bt_admin
 
@@ -536,3 +537,5 @@ service dumpstate /system/bin/dumpstate -s
     socket dumpstate stream 0660 shell log
     disabled
     oneshot
+
+
