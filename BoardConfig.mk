@@ -5,7 +5,7 @@ USE_CAMERA_STUB := true
 
 TARGET_NO_BOOTLOADER := true
 
-TARGET_BOARD_PLATFORM := msm8660
+TARGET_BOARD_PLATFORM := msm8x60
 TARGET_BOARD_PLATFORM_GPU := qcom-adreno200
 
 TARGET_CPU_ABI := armeabi-v7a
@@ -22,60 +22,58 @@ TARGET_HAVE_TSLIB := false
 TARGET_GLOBAL_CFLAGS += -mfpu=neon -mfloat-abi=softfp
 TARGET_GLOBAL_CPPFLAGS += -mfpu=neon -mfloat-abi=softfp
 
+TARGET_SPECIFIC_HEADER_PATH := device/htc/shooter/include
+
 # Wifi related defines
-BOARD_WPA_SUPPLICANT_DRIVER := WEXT
-WPA_SUPPLICANT_VERSION      := VER_0_6_X
-BOARD_WLAN_DEVICE           := bcm4329
-WIFI_DRIVER_MODULE_PATH     := "/system/lib/modules/bcm4329.ko"
-WIFI_DRIVER_FW_STA_PATH     := "/system/etc/firmware/fw_bcm4329.bin"
-WIFI_DRIVER_FW_AP_PATH      := "/system/etc/firmware/fw_bcm4329_apsta.bin"
-WIFI_DRIVER_MODULE_ARG      := "firmware_path=/system/etc/firmware/fw_bcm4329.bin nvram_path=/proc/calibration"
-WIFI_DRIVER_MODULE_NAME     := "bcm4329"
+BOARD_WPA_SUPPLICANT_DRIVER      := WEXT
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_wext
+WPA_SUPPLICANT_VERSION           := VER_0_8_X
+BOARD_WLAN_DEVICE                := bcm4329
+WIFI_DRIVER_MODULE_PATH          := "/system/lib/modules/bcm4329.ko"
+WIFI_DRIVER_FW_PATH_STA          := "/vendor/firmware/fw_bcm4329.bin"
+WIFI_DRIVER_FW_PATH_AP           := "/vendor/firmware/fw_bcm4329_apsta.bin"
+WIFI_DRIVER_MODULE_ARG           := "firmware_path=/vendor/firmware/fw_bcm4329.bin nvram_path=/proc/calibration"
+WIFI_DRIVER_MODULE_NAME          := "bcm4329"
 
 # Audio 
-BOARD_USES_GENERIC_AUDIO := false
-BOARD_PREBUILT_LIBAUDIO := true
+#BOARD_USES_GENERIC_AUDIO := false
+#BOARD_PREBUILT_LIBAUDIO := true
 
-#Bluetooth
+# Bluetooth
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_BCM := true
 
+# Gps
+#BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := shooter
+#BOARD_VENDOR_QCOM_GPS_LOC_API_AMSS_VERSION := 50000
+
 # Define egl.cfg location
 BOARD_EGL_CFG := device/htc/shooter/egl.cfg
+BOARD_USES_OVERLAY := true
+#USE_OPENGL_RENDERER := true
+#BOARD_USES_HGL := true
 
+COMMON_GLOBAL_CFLAGS += \
+    -DMISSING_EGL_EXTERNAL_IMAGE \
+    -DMISSING_EGL_PIXEL_FORMAT_YV12 \
+    -DMISSING_GRALLOC_BUFFERS
+
+#BOARD_USES_QCOM_HARDWARE := true
 BOARD_USES_QCOM_LIBS := true
-BOARD_USES_QCOM_LIBRPC := true
-#BOARD_USES_QCOM_GPS := true
-BOARD_USE_QCOM_PMEM := true
-BOARD_CAMERA_USE_GETBUFFERINFO := true
+
+# Legacy touchscreen support
+BOARD_USE_LEGACY_TOUCHSCREEN := true
 
 
-#BOARD_OVERLAY_FORMAT_YCbCr_420_SP := true
-BOARD_USES_ADRENO_200 := true
-#BOARD_NO_RGBX_8888 := true
-
-BOARD_HAVE_FM_RADIO := true
-BOARD_GLOBAL_CFLAGS += -DHAVE_FM_RADIO
-BOARD_USE_BROADCOM_FM_VOLUME_HACK := true
-
-BOARD_HAVE_SQN_WIMAX := true
-
-TARGET_BOOTLOADER_BOARD_NAME := shooter
 
 BOARD_USE_NEW_LIBRIL_HTC := true
 TARGET_PROVIDES_LIBRIL := vendor/htc/shooter/proprietary/libril.so
 
 BOARD_KERNEL_CMDLINE := no_console_suspend=1
-BOARD_KERNEL_BASE := 0x40400000
+BOARD_KERNEL_BASE := 0x48000000
 BOARD_PAGE_SIZE := 2048
 
-TARGET_USE_SCORPION_BIONIC_OPTIMIZATION := true
 
-#BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := shooter
-#BOARD_VENDOR_QCOM_GPS_LOC_API_AMSS_VERSION := 50000
-
-TARGET_HAVE_HDMI_OUT := true
-TARGET_HARDWARE_3D := true
 
 # Define Prebuilt kernel locations
 TARGET_PREBUILT_KERNEL := device/htc/shooter/kernel

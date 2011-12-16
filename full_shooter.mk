@@ -77,10 +77,11 @@ PRODUCT_PACKAGES += \
     libOmxVenc \
     libOmxVdec \
     com.android.future.usb.accessory
-#    gps.shooter \
-#    librs_jni \
+
 #    gralloc.msm8660 \
-#    copybit.msm8660 \
+#    overlay.default \
+#    gps.shooter \
+#    copybit.msm8x60 \
 #    overlay.default \
 #    libOmxCore \
 #    libaudio \
@@ -157,11 +158,8 @@ PRODUCT_COPY_FILES += \
 
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
-DEVICE_PACKAGE_OVERLAYS += device/htc/shooter/overlay
-
-
 ifeq ($(TARGET_PREBUILT_KERNEL),)
-	LOCAL_KERNEL := device/htc/shooter/zImage
+	LOCAL_KERNEL := device/htc/shooter/kernel
 else
 	LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
 endif

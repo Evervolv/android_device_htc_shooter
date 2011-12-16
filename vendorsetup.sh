@@ -21,4 +21,4 @@
 # function: add_lunch_combo generic-eng
 
 #add_lunch_combo full_shooter-userdebug
-#add_lunch_combo full_shooter-eng
+add_lunch_combo full_shooter-eng
