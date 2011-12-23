@@ -31,12 +31,19 @@ PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.lockprof.threshold=500 \
     dalvik.vm.dexopt-flags=m=y
 
-#TODO ---- What do we need to do to not use a static init & init.rc?
 PRODUCT_COPY_FILES += \
     device/htc/shooter/init.shooter.rc:root/init.shooter.rc \
     device/htc/shooter/ueventd.shooter.rc:root/ueventd.shooter.rc
 
-#Add toushcreen config file
+#Using prebuilt audio libs right now
+PRODUCT_COPY_FILES += \
+    device/htc/shooter/prebuilt/lib/hw/audio.primary.default.so:system/lib/hw/audio.primary.default.so \
+    device/htc/shooter/prebuilt/lib/hw/audio_policy.default.so:system/lib/hw/audio_policy.default.so \
+    device/htc/shooter/prebuilt/lib/hw/audio.a2dp.default.so:system/lib/hw/audio.a2dp.default.so
+
+
+
+#Add touchscreen config file
 PRODUCT_COPY_FILES += \
     device/htc/shooter/atmel-touchscreen.idc:system/usr/idc/atmel-touchscreen.idc \
     device/htc/shooter/atmel-touchscreen.kl:system/usr/keylayout/atmel-touchscreen.kl \
