@@ -39,7 +39,8 @@ PRODUCT_COPY_FILES += \
 #Add toushcreen config file
 PRODUCT_COPY_FILES += \
     device/htc/shooter/atmel-touchscreen.idc:system/usr/idc/atmel-touchscreen.idc \
-    device/htc/shooter/atmel-touchscreen.kl:system/usr/keylayout/atmel-touchscreen.kl
+    device/htc/shooter/atmel-touchscreen.kl:system/usr/keylayout/atmel-touchscreen.kl \
+    device/htc/shooter/shooter-keypad.idc:system/usr/idc/shooter-keypad.idc
 
 
 ## (2) Also get non-open-source GSM-specific aspects if available
