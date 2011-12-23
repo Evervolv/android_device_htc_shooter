@@ -19,7 +19,7 @@
 touch.deviceType = touchScreen
 touch.orientationAware = 1
 
-keyboard.layout = shooter-keypad
+keyboard.layout = atmel-touchscreen
 keyboard.characterMap = Virtual
 keyboard.orientationAware = 1
 keyboard.builtIn = 0
