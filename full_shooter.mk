@@ -33,9 +33,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 #TODO ---- What do we need to do to not use a static init & init.rc?
 PRODUCT_COPY_FILES += \
-    device/htc/shooter/init:root/init \
-    device/htc/shooter/init.rc:root/init.rc \
-    device/htc/shooter/ueventd.rc:root/ueventd.rc \
     device/htc/shooter/init.shooter.rc:root/init.shooter.rc \
     device/htc/shooter/ueventd.shooter.rc:root/ueventd.shooter.rc
 
@@ -76,9 +73,10 @@ PRODUCT_PACKAGES += \
     librs_jni \
     libOmxVenc \
     libOmxVdec \
+    gralloc.msm8660 \
     com.android.future.usb.accessory
 
-#    gralloc.msm8660 \
+
 #    overlay.default \
 #    gps.shooter \
 #    copybit.msm8x60 \
@@ -176,7 +174,7 @@ $(call inherit-product, device/htc/shooter/media_htcaudio.mk)
 # stuff common to all HTC phones
 $(call inherit-product, device/htc/common/common.mk)
 
-$(call inherit-product, build/target/product/full_base.mk)
+$(call inherit-product, build/target/product/full_base_telephony.mk)
 
 PRODUCT_NAME := full_shooter
 PRODUCT_DEVICE := shooter
