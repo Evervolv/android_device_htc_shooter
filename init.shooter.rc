@@ -82,6 +82,8 @@ on fs
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
     chmod 0660                /sys/class/rfkill/rfkill0/state
+    chown bluetooth bluetooth /dev/ttyHS0    
+    chmod 0770 /dev/ttyHS0
 
     # bluetooth MAC address programming
     chown bluetooth bluetooth /sys/module/htc_bdaddress/parameters/bdaddr
@@ -169,18 +171,15 @@ service iprenew_eth0 /system/bin/dhcpcd -n
     disabled
     oneshot
 
-service dhcpWimax /system/bin/dhcpcd -ABKL -f /etc/wimax/dhcp/wimaxDhcp.conf wimax0
-    disabled
-    oneshot
-
-
 # bugreport is triggered by the KEY_VOLUMEUP and KEY_VOLUMEDOWN keycodes
 service bugreport /system/bin/dumpstate -d -v -o /sdcard/bugreports/bugreport
     disabled
     oneshot
     keycodes 114 115
 
-service hciattach /system/bin/logwrapper /system/bin/brcm_patchram_plus --enable_hci --baudrate 3000000 --patchram /etc/firmware/BCM4329B1_002.002.023.0589.0632.hcd /dev/ttyHS0
+service hciattach /system/bin/brcm_patchram_plus --enable_hci --enable_lpm \
+    --baudrate 3000000 --patchram /etc/firmware/bcm4329.hcd /dev/ttyHS0
+    class main
     user bluetooth
     group bluetooth net_bt_admin
     disabled
