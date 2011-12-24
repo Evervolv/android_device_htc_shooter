@@ -154,15 +154,18 @@ service wpa_supplicant /system/bin/logwrapper /system/bin/wpa_supplicant \
 #   after setting up the capabilities required for WEXT
 #   user wifi
 #   group wifi inet keystore
+    class main
     socket wpa_eth0 dgram 660 wifi wifi
     disabled
     oneshot
 
 service dhcpcd_eth0 /system/bin/dhcpcd -ABKL
+    class main
     disabled
     oneshot
 
 service iprenew_eth0 /system/bin/dhcpcd -n
+    class main
     disabled
     oneshot
 
@@ -237,96 +240,10 @@ on property:service.modem.enable=0
 on property:ro.emmc=1
     start rmt_storage
 
-service sequansd /system/bin/sequansd /etc/wimax/sequansd/sequansd_app.xml
-    user root
-    group root inet
-    socket sequansd_0 dgram 660 root root
-    disabled
-    oneshot
-
-service wimaxDhcpRelease /system/bin/wimaxDhcpRelease
-    user root
-    group root
-    disabled
-    oneshot
-
-service wimaxDhcpRenew /system/bin/wimaxDhcpRenew
-    user root
-    group root
-    disabled
-    oneshot
-
-service wimaxAddRoute /system/bin/wimaxAddRoute
-    user root
-    group root
-    disabled
-    oneshot
-
-service wimaxDumpLogcat /system/bin/wimaxDumpLogcat /data/wimax/log
-    user root
-    group root
-    disabled
-    oneshot
-
-service wimaxDumpKmsg /system/bin/wimaxDumpKmsg /data/wimax/log
-    user root
-    group root
-    disabled
-    oneshot
-
-service wimaxDumpLastKmsg /system/bin/wimaxDumpLastKmsg /data/wimax/log
-    user root
-    group root
-    disabled
-    oneshot
-
-service wmxCfgItf /system/bin/wimaxConfigInterface
-    user root
-    group root
-    disabled
-    oneshot
-
-service wimaxDaemon /system/bin/wimaxDaemon
-   user root
-   group root
-
-# wimax_mtd daemon
-service wimax_mtd /system/bin/wimax_mtd
-   user root
-   group root
-   oneshot
-
-# setWMXPropd daemon
-service setWMXPropd /system/bin/setWiMAXPropDaemond
-    user root
-    group root
-    oneshot
-
-# getWMXPropd daemon
-service getWMXPropd /system/bin/getWiMAXPropDaemond
-    user root
-    group root
-    oneshot
-
 service dmagent /system/bin/dmagent -N -P19 -VSY
     socket dmagent stream 660 root radio
     user root
     group radio cache inet misc
-
-# HTC IPC server
-#service htcipcd /system/bin/htcipcd
-#    user root
-#    group root system
-
-# CIQ backend daemon
-#service iqd /system/bin/iqd
-#    user root
-#    group root system
-
-# CIQ frontend daemon
-#service iqfd /system/bin/iqfd
-#    user root
-#    group root system
 
 service srv_ser2net /system/bin/ser2net -n
     disabled
