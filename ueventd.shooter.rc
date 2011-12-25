@@ -36,4 +36,5 @@
 /dev/msm_vidc_enc       0660    system      audio
 /dev/msm_vidc_reg       0660    system      audio
 
-
+# Bluetooth
+/dev/ttyHS0             0600     bluetooth  bluetooth
