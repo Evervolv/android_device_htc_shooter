@@ -85,8 +85,6 @@ PRODUCT_PACKAGES += \
     libOmxVdec \
     gralloc.msm8660 \
     com.android.future.usb.accessory
-
-
 #    overlay.default \
 #    gps.shooter \
 #    copybit.msm8x60 \
@@ -94,6 +92,9 @@ PRODUCT_PACKAGES += \
 #    libOmxCore \
 #    libaudio \
 
+##Disable HWAccel for now
+ADDITIONAL_BUILD_PROPERTIES += \
+    ro.config.disable_hw_accel=true
 
 # Keylayouts
 PRODUCT_COPY_FILES += \
