@@ -33,7 +33,13 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 PRODUCT_COPY_FILES += \
     device/htc/shooter/prebuilt/root/init.shooter.rc:root/init.shooter.rc \
+    device/htc/shooter/prebuilt/root/init.shooter.usb.rc:root/init.shooter.usb.rc \
     device/htc/shooter/prebuilt/root/ueventd.shooter.rc:root/ueventd.shooter.rc
+
+
+# Temporary hack
+ADDITIONAL_DEFAULT_PROPERTIES += \
+    persist.service.adb.enable=1
 
 #Using prebuilt audio libs right now
 PRODUCT_COPY_FILES += \

@@ -1,4 +1,4 @@
-
+import init.shooter.usb.rc
 
 on boot
     mount debugfs /sys/kernel/debug /sys/kernel/debug

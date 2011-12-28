@@ -28,5 +28,7 @@ PRODUCT_COPY_FILES +=  \
     vendor/ev/prebuilt/qhd/media/bootanimation.zip:system/media/bootanimation.zip
 
 # USB
-#ADDITIONAL_DEFAULT_PROPERTIES += persist.sys.usb.config=mass_storage,adb
+ADDITIONAL_DEFAULT_PROPERTIES += \
+    persist.sys.usb.config=mass_storage
+
 #ADDITIONAL_DEFAULT_PROPERTIES += persist.sys.usb.config=mtp,adb
