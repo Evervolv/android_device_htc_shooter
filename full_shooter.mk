@@ -20,7 +20,7 @@ PRODUCT_AAPT_PREF_CONFIG := hdpi
 
 # The gps config appropriate for this device
 PRODUCT_COPY_FILES += \
-    device/htc/shooter/gps.conf:system/etc/gps.conf
+    device/htc/shooter/prebuilt/system/etc/gps.conf:system/etc/gps.conf
 
 ## (1) First, the most specific values, i.e. the aspects that are specific to GSM
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -32,22 +32,22 @@ PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.dexopt-flags=m=y
 
 PRODUCT_COPY_FILES += \
-    device/htc/shooter/init.shooter.rc:root/init.shooter.rc \
-    device/htc/shooter/ueventd.shooter.rc:root/ueventd.shooter.rc
+    device/htc/shooter/prebuilt/root/init.shooter.rc:root/init.shooter.rc \
+    device/htc/shooter/prebuilt/root/ueventd.shooter.rc:root/ueventd.shooter.rc
 
 #Using prebuilt audio libs right now
 PRODUCT_COPY_FILES += \
-    device/htc/shooter/prebuilt/lib/hw/audio.primary.default.so:system/lib/hw/audio.primary.default.so \
-    device/htc/shooter/prebuilt/lib/hw/audio_policy.default.so:system/lib/hw/audio_policy.default.so \
-    device/htc/shooter/prebuilt/lib/hw/audio.a2dp.default.so:system/lib/hw/audio.a2dp.default.so
+    device/htc/shooter/prebuilt/system/lib/hw/audio.primary.default.so:system/lib/hw/audio.primary.default.so \
+    device/htc/shooter/prebuilt/system/lib/hw/audio_policy.default.so:system/lib/hw/audio_policy.default.so \
+    device/htc/shooter/prebuilt/system/lib/hw/audio.a2dp.default.so:system/lib/hw/audio.a2dp.default.so
 
 
 
 #Add touchscreen config file
 PRODUCT_COPY_FILES += \
-    device/htc/shooter/atmel-touchscreen.idc:system/usr/idc/atmel-touchscreen.idc \
-    device/htc/shooter/atmel-touchscreen.kl:system/usr/keylayout/atmel-touchscreen.kl \
-    device/htc/shooter/shooter-keypad.idc:system/usr/idc/shooter-keypad.idc
+    device/htc/shooter/prebuilt/system/usr/idc/atmel-touchscreen.idc:system/usr/idc/atmel-touchscreen.idc \
+    device/htc/shooter/prebuilt/system/usr/keylayout/atmel-touchscreen.kl:system/usr/keylayout/atmel-touchscreen.kl \
+    device/htc/shooter/prebuilt/system/usr/idc/shooter-keypad.idc:system/usr/idc/shooter-keypad.idc
 
 
 ## (2) Also get non-open-source GSM-specific aspects if available
@@ -97,55 +97,55 @@ PRODUCT_PACKAGES += \
 
 # Keylayouts
 PRODUCT_COPY_FILES += \
-    device/htc/shooter/keychars/qwerty2.kcm.bin:system/usr/keychars/qwerty2.kcm.bin \
-    device/htc/shooter/keychars/qwerty.kcm.bin:system/usr/keychars/qwerty.kcm.bin \
-    device/htc/shooter/keychars/shooter-keypad.kcm.bin:system/usr/keychars/shooter-keypad.kcm.bin \
-    device/htc/shooter/keychars/BT_HID.kcm.bin:system/usr/keychars/BT_HID.kcm.bin \
-    device/htc/shooter/keylayout/h2w_headset.kl:system/usr/keylayout/h2w_headset.kl \
-    device/htc/shooter/keylayout/qwerty.kl:system/usr/keylayout/qwerty.kl \
-    device/htc/shooter/keylayout/shooter-keypad.kl:system/usr/keylayout/shooter-keypad.kl \
-    device/htc/shooter/keylayout/BT_HID.kl:system/usr/keylayout/BT_HID.kl \
-    device/htc/shooter/keylayout/AVRCP.kl:system/usr/keylayout/AVRCP.kl
+    device/htc/shooter/prebuilt/system/usr/keychars/qwerty2.kcm.bin:system/usr/keychars/qwerty2.kcm.bin \
+    device/htc/shooter/prebuilt/system/usr/keychars/qwerty.kcm.bin:system/usr/keychars/qwerty.kcm.bin \
+    device/htc/shooter/prebuilt/system/usr/keychars/shooter-keypad.kcm.bin:system/usr/keychars/shooter-keypad.kcm.bin \
+    device/htc/shooter/prebuilt/system/usr/keychars/BT_HID.kcm.bin:system/usr/keychars/BT_HID.kcm.bin \
+    device/htc/shooter/prebuilt/system/usr/keylayout/h2w_headset.kl:system/usr/keylayout/h2w_headset.kl \
+    device/htc/shooter/prebuilt/system/usr/keylayout/qwerty.kl:system/usr/keylayout/qwerty.kl \
+    device/htc/shooter/prebuilt/system/usr/keylayout/shooter-keypad.kl:system/usr/keylayout/shooter-keypad.kl \
+    device/htc/shooter/prebuilt/system/usr/keylayout/BT_HID.kl:system/usr/keylayout/BT_HID.kl \
+    device/htc/shooter/prebuilt/system/usr/keylayout/AVRCP.kl:system/usr/keylayout/AVRCP.kl
 # Firmware
 PRODUCT_COPY_FILES += \
-    device/htc/shooter/firmware/BCM4329B1_002.002.023.0589.0632.hcd:system/etc/firmware/BCM4329B1_002.002.023.0589.0632.hcd \
-    device/htc/shooter/firmware/fw_bcm4329.bin:system/etc/firmware/fw_bcm4329.bin \
-    device/htc/shooter/firmware/fw_bcm4329_apsta.bin:system/etc/firmware/fw_bcm4329_apsta.bin \
-    device/htc/shooter/firmware/vidc_1080p.fw:system/etc/firmware/vidc_1080p.fw \
-    device/htc/shooter/firmware/leia_pfp_470.fw:system/etc/firmware/leia_pfp_470.fw \
-    device/htc/shooter/firmware/leia_pm4_470.fw:system/etc/firmware/leia_pm4_470.fw
+    device/htc/shooter/prebuilt/system/etc/firmware/BCM4329B1_002.002.023.0589.0632.hcd:system/etc/firmware/BCM4329B1_002.002.023.0589.0632.hcd \
+    device/htc/shooter/prebuilt/system/etc/firmware/fw_bcm4329.bin:system/etc/firmware/fw_bcm4329.bin \
+    device/htc/shooter/prebuilt/system/etc/firmware/fw_bcm4329_apsta.bin:system/etc/firmware/fw_bcm4329_apsta.bin \
+    device/htc/shooter/prebuilt/system/etc/firmware/vidc_1080p.fw:system/etc/firmware/vidc_1080p.fw \
+    device/htc/shooter/prebuilt/system/etc/firmware/leia_pfp_470.fw:system/etc/firmware/leia_pfp_470.fw \
+    device/htc/shooter/prebuilt/system/etc/firmware/leia_pm4_470.fw:system/etc/firmware/leia_pm4_470.fw
     
 # Audio DSP Profiles
 PRODUCT_COPY_FILES += \
-    device/htc/shooter/dsp/AIC3254_REG.csv:system/etc/AIC3254_REG.csv \
-    device/htc/shooter/dsp/AIC3254_REG_DualMic.csv:system/etc/AIC3254_REG_DualMic.csv \
-    device/htc/shooter/dsp/AdieHWCodec.csv:system/etc/AdieHWCodec.csv \
-    device/htc/shooter/dsp/AudioBTID.csv:system/etc/AudioBTID.csv \
-    device/htc/shooter/dsp/CodecDSPID.txt:system/etc/CodecDSPID.txt \
-    device/htc/shooter/dsp/CodecDSPID_WB.txt:system/etc/CodecDSPID_WB.txt \
-    device/htc/shooter/dsp/TPA2051_CFG.csv:system/etc/TPA2051_CFG.csv \
-    device/htc/shooter/dsp/TPA2051_CFG_XC.csv:system/etc/TPA2051_CFG_XC.csv \
-    device/htc/shooter/dsp/soundimage/Sound_Original_Recording.txt:system/etc/soundimage/Sound_Original_Recording.txt \
-    device/htc/shooter/dsp/soundimage/Sound_Original_SPK.txt:system/etc/soundimage/Sound_Original_SPK.txt \
-    device/htc/shooter/dsp/soundimage/Sound_Original.txt:system/etc/soundimage/Sound_Original.txt \
-    device/htc/shooter/dsp/soundimage/Sound_Phone_Original_HP.txt:system/etc/soundimage/Sound_Phone_Original_HP.txt \
-    device/htc/shooter/dsp/soundimage/Sound_Phone_Original_REC.txt:system/etc/soundimage/Sound_Phone_Original_REC.txt \
-    device/htc/shooter/dsp/soundimage/Sound_Phone_Original_SPK.txt:system/etc/soundimage/Sound_Phone_Original_SPK.txt \
-    device/htc/shooter/dsp/soundimage/Sound_Rec_Landscape.txt:system/etc/soundimage/Sound_Rec_Landscape.txt \
-    device/htc/shooter/dsp/soundimage/Sound_Rec_Portrait.txt:system/etc/soundimage/Sound_Rec_Portrait.txt \
-    device/htc/shooter/dsp/soundimage/Sound_Recording.txt:system/etc/soundimage/Sound_Recording.txt \
-    device/htc/shooter/dsp/soundimage/srs_geq10.cfg:system/etc/soundimage/srs_geq10.cfg \
-    device/htc/shooter/dsp/soundimage/srsfx_trumedia_51.cfg:system/etc/soundimage/srsfx_trumedia_51.cfg \
-    device/htc/shooter/dsp/soundimage/srsfx_trumedia_movie.cfg:system/etc/soundimage/srsfx_trumedia_movie.cfg \
-    device/htc/shooter/dsp/soundimage/srsfx_trumedia_music.cfg:system/etc/soundimage/srsfx_trumedia_music.cfg \
-    device/htc/shooter/prebuilt/snd3254:system/bin/snd3254
+    device/htc/shooter/prebuilt/system/etc/AIC3254_REG.csv:system/etc/AIC3254_REG.csv \
+    device/htc/shooter/prebuilt/system/etc/AIC3254_REG_DualMic.csv:system/etc/AIC3254_REG_DualMic.csv \
+    device/htc/shooter/prebuilt/system/etc/AdieHWCodec.csv:system/etc/AdieHWCodec.csv \
+    device/htc/shooter/prebuilt/system/etc/AudioBTID.csv:system/etc/AudioBTID.csv \
+    device/htc/shooter/prebuilt/system/etc/CodecDSPID.txt:system/etc/CodecDSPID.txt \
+    device/htc/shooter/prebuilt/system/etc/CodecDSPID_WB.txt:system/etc/CodecDSPID_WB.txt \
+    device/htc/shooter/prebuilt/system/etc/TPA2051_CFG.csv:system/etc/TPA2051_CFG.csv \
+    device/htc/shooter/prebuilt/system/etc/TPA2051_CFG_XC.csv:system/etc/TPA2051_CFG_XC.csv \
+    device/htc/shooter/prebuilt/system/etc/soundimage/Sound_Original_Recording.txt:system/etc/soundimage/Sound_Original_Recording.txt \
+    device/htc/shooter/prebuilt/system/etc/soundimage/Sound_Original_SPK.txt:system/etc/soundimage/Sound_Original_SPK.txt \
+    device/htc/shooter/prebuilt/system/etc/soundimage/Sound_Original.txt:system/etc/soundimage/Sound_Original.txt \
+    device/htc/shooter/prebuilt/system/etc/soundimage/Sound_Phone_Original_HP.txt:system/etc/soundimage/Sound_Phone_Original_HP.txt \
+    device/htc/shooter/prebuilt/system/etc/soundimage/Sound_Phone_Original_REC.txt:system/etc/soundimage/Sound_Phone_Original_REC.txt \
+    device/htc/shooter/prebuilt/system/etc/soundimage/Sound_Phone_Original_SPK.txt:system/etc/soundimage/Sound_Phone_Original_SPK.txt \
+    device/htc/shooter/prebuilt/system/etc/soundimage/Sound_Rec_Landscape.txt:system/etc/soundimage/Sound_Rec_Landscape.txt \
+    device/htc/shooter/prebuilt/system/etc/soundimage/Sound_Rec_Portrait.txt:system/etc/soundimage/Sound_Rec_Portrait.txt \
+    device/htc/shooter/prebuilt/system/etc/soundimage/Sound_Recording.txt:system/etc/soundimage/Sound_Recording.txt \
+    device/htc/shooter/prebuilt/system/etc/soundimage/srs_geq10.cfg:system/etc/soundimage/srs_geq10.cfg \
+    device/htc/shooter/prebuilt/system/etc/soundimage/srsfx_trumedia_51.cfg:system/etc/soundimage/srsfx_trumedia_51.cfg \
+    device/htc/shooter/prebuilt/system/etc/soundimage/srsfx_trumedia_movie.cfg:system/etc/soundimage/srsfx_trumedia_movie.cfg \
+    device/htc/shooter/prebuilt/system/etc/soundimage/srsfx_trumedia_music.cfg:system/etc/soundimage/srsfx_trumedia_music.cfg \
+    device/htc/shooter/prebuilt/system/bin/snd3254:system/bin/snd3254
 
 # Wifi Module
 PRODUCT_COPY_FILES += \
-    device/htc/shooter/modules/bcm4329.ko:system/lib/modules/bcm4329.ko \
-    device/htc/shooter/modules/sequans_sdio.ko:system/lib/modules/sequans_sdio.ko \
-    device/htc/shooter/modules/wimaxdbg.ko:system/lib/modules/wimaxdbg.ko \
-    device/htc/shooter/modules/wimaxuart.ko:system/lib/modules/wimaxuart.ko
+    device/htc/shooter/prebuilt/system/lib/modules/bcm4329.ko:system/lib/modules/bcm4329.ko \
+    device/htc/shooter/prebuilt/system/lib/modules/sequans_sdio.ko:system/lib/modules/sequans_sdio.ko \
+    device/htc/shooter/prebuilt/system/lib/modules/wimaxdbg.ko:system/lib/modules/wimaxdbg.ko \
+    device/htc/shooter/prebuilt/system/lib/modules/wimaxuart.ko:system/lib/modules/wimaxuart.ko
 
 # we have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
@@ -154,13 +154,13 @@ PRODUCT_TAGS += dalvik.gc.type-precise
 PRODUCT_LOCALES += en
 
 PRODUCT_COPY_FILES += \
-    device/htc/shooter/vold.fstab:system/etc/vold.fstab \
-    device/htc/shooter/apns-conf.xml:system/etc/apns-conf.xml
+    device/htc/shooter/prebuilt/system/etc/vold.fstab:system/etc/vold.fstab \
+    device/htc/shooter/prebuilt/system/etc/apns-conf.xml:system/etc/apns-conf.xml
 
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
 ifeq ($(TARGET_PREBUILT_KERNEL),)
-	LOCAL_KERNEL := device/htc/shooter/kernel
+	LOCAL_KERNEL := device/htc/shooter/prebuilt/root/kernel
 else
 	LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
 endif

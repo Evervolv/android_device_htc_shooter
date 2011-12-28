@@ -47,7 +47,7 @@ BOARD_HAVE_BLUETOOTH_BCM := true
 #BOARD_VENDOR_QCOM_GPS_LOC_API_AMSS_VERSION := 50000
 
 # Define egl.cfg location
-BOARD_EGL_CFG := device/htc/shooter/egl.cfg
+BOARD_EGL_CFG := device/htc/shooter/prebuilt/egl/egl.cfg
 BOARD_USES_OVERLAY := true
 #USE_OPENGL_RENDERER := true
 #BOARD_USES_HGL := true
@@ -75,7 +75,7 @@ BOARD_PAGE_SIZE := 2048
 
 
 # Define Prebuilt kernel locations
-TARGET_PREBUILT_KERNEL := device/htc/shooter/kernel
+TARGET_PREBUILT_KERNEL := device/htc/shooter/prebuilt/root/kernel
 
 # cat /proc/emmc
 # dev:        size     erasesize name
