@@ -24,7 +24,7 @@ PRODUCT_COPY_FILES += \
 
 ## (1) First, the most specific values, i.e. the aspects that are specific to GSM
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.com.google.clientidbase=android-htc \
+    ro.com.google.clientidbase=android-sprint-us \
     ro.com.google.locationfeatures=1 \
     ro.com.google.networklocation=1 \
     ro.setupwizard.enable_bypass=1 \
@@ -62,9 +62,22 @@ $(call inherit-product-if-exists, vendor/htc/shooter/shooter-vendor.mk)
 ## (3)  Finally, the least specific parts, i.e. the non-GSM-specific aspects
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.com.google.clientidbase=android-sprint-us \
-	ro.com.google.locationfeatures=1 \
+	ro.com.google.clientidbase.yt=android-sprint-us \
+	ro.com.google.clientidbase.am=android-sprint-us \
+	ro.com.google.clientidbase.vs=android-sprint-us \
+	ro.com.google.clientidbase.gmm=android-sprint-us \
+	ro.com.google.clientidbase.ms=android-sprint-us \
+	ro.phone.min_match=7 \
+	ro.product.model=PG86100 \
+	ro.cdma.home.operator.alpha=sprint \
+	gsm.sim.operator.alpha=sprint \
+	gsm.operator.alpha=sprint \
 	ro.cdma.home.operator.numeric=310120 \
-	ro.cdma.home.operator.alpha=Sprint \
+	gsm.sim.operator.numeric=310120 \
+	gsm.operator.numeric=310120 \
+	gsm.sim.operator.iso-country=us \
+	gsm.operator.iso-country=us \
+	ro.com.google.locationfeatures=1 \
 	ro.setupwizard.enable_bypass=1 \
 	ro.media.dec.jpeg.memcap=20000000 \
 	dalvik.vm.lockprof.threshold=500 \
