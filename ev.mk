@@ -27,6 +27,10 @@ PRODUCT_MOTD :="\n\n\n--------------------MESSAGE---------------------\nThank yo
 PRODUCT_COPY_FILES +=  \
     vendor/ev/prebuilt/qhd/media/bootanimation.zip:system/media/bootanimation.zip
 
+# qHD overlay
+PRODUCT_PACKAGE_OVERLAYS += \
+    vendor/ev/overlay/qhd
+
 # USB
 ADDITIONAL_DEFAULT_PROPERTIES += \
     persist.sys.usb.config=mass_storage
