@@ -16,7 +16,7 @@ PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=htc_shooter BUILD_ID=GRI40 BUILD_FI
 
 # Set up the product codename, build version & MOTD.
 PRODUCT_CODENAME := Neco
-PRODUCT_VERSION_DEVICE_SPECIFIC := p4
+PRODUCT_VERSION_DEVICE_SPECIFIC := p5
 
 PRODUCT_MOTD :="\n\n\n--------------------MESSAGE---------------------\nThank you for choosing Evervolv for your HTC Evo 3D\nPlease visit us at \#evervolv on irc.freenode.net\nFollow @preludedrew for the latest Evervolv updates\nGet the latest rom at evervolv.com\n------------------------------------------------\n"
 
