@@ -100,20 +100,17 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_PACKAGES += \
     librs_jni \
+    copybit.msm8660 \
+    gralloc.msm8660 \
+    hwcomposer.msm8660 \
+    libgenlock \
+    libmemalloc \
+    liboverlay \
+    libQcomUI \
+    libOmxCore \
     libOmxVenc \
     libOmxVdec \
-    gralloc.msm8660 \
     com.android.future.usb.accessory
-#    overlay.default \
-#    gps.shooter \
-#    copybit.msm8x60 \
-#    overlay.default \
-#    libOmxCore \
-#    libaudio \
-
-##Disable HWAccel for now
-ADDITIONAL_BUILD_PROPERTIES += \
-    ro.config.disable_hw_accel=true
 
 # Keylayouts
 PRODUCT_COPY_FILES += \
