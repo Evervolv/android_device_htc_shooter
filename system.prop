@@ -7,17 +7,20 @@ debug.fb.rgb565 = 0
 
 #C2D
 debug.composition.type = c2d
+debug.qctwa.statusbar=1
+debug.qctwa.preservebuf=1
+
+# cm qcom build lub
+com.qc.hardware=true
+com.qc.hdmi_out=false
 
 rild.libpath=/system/lib/libhtc_ril.so
 ro.ril.def.preferred.network = 4
 ro.telephony.default_network = 4
 net.tcp.buffersize.wimax = 4096,221184,524288,4096,16384,110208
 
-
-
 wifi.interface=wlan0
 wifi.supplicant_scan_interval=15
-
 
 # The OpenGL ES API level that is natively supported by this device.
 # This is a 16.16 fixed point number
