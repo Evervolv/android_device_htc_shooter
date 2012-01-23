@@ -16,6 +16,11 @@ on early-fs
 
     devwait /dev/block/mmcblk0p18
 
+    export EXTERNAL_STORAGE /mnt/sdcard
+    mkdir /mnt/sdcard 0000 system system
+    # for backwards compatibility
+    symlink /mnt/sdcard /sdcard
+
 on fs
     rm /vendor
     #8x60: mount radio partition and create links for modem/q6 firmwares
