@@ -39,6 +39,9 @@ WIFI_BAND                        := 802_11_ABG
 #BOARD_USES_GENERIC_AUDIO := false
 #BOARD_PREBUILT_LIBAUDIO := true
 
+# prevent breakage from QCOM_HARDWARE in system/core/include/system/audio.h
+COMMON_GLOBAL_CFLAGS += -DLEGACY_AUDIO_COMPAT
+
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_BCM := true
