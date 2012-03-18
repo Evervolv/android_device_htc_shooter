@@ -106,6 +106,7 @@ enum {
 	FB_IMG,
 };
 
+/* adding for liboverlay */
 enum {
 	HSIC_HUE = 0,
 	HSIC_SAT,
@@ -139,6 +140,10 @@ enum {
 #define MDP_DEINTERLACE_ODD		0x00400000
 #define MDP_OV_PLAY_NOWAIT		0x00200000
 #define MDP_SOURCE_ROTATED_90		0x00100000
+
+/* adding for liboverlay */
+#define MDP_BORDERFILL_SUPPORTED	0x00010000
+#define MDP_SECURE_OVERLAY_SESSION      0x00008000
 #define MDP_MEMORY_ID_TYPE_FB		0x00001000
 #define MDP_DPP_HSIC			0x00080000
 
@@ -273,6 +278,7 @@ struct mdp_overlay {
 	uint32_t flags;
 	uint32_t id;
 	uint32_t user_data[8];
+	/* adding for liboverlay */
 	struct dpp_ctrl dpp;
 };
 
@@ -297,6 +303,21 @@ struct mdp_histogram {
 	uint32_t *r;
 	uint32_t *g;
 	uint32_t *b;
+};
+
+/* adding for liboverlay */
+enum {
+	MDP_BLOCK_RESERVED = 0,
+	MDP_BLOCK_OVERLAY_0,
+	MDP_BLOCK_OVERLAY_1,
+	MDP_BLOCK_VG_1,
+	MDP_BLOCK_VG_2,
+	MDP_BLOCK_RGB_1,
+	MDP_BLOCK_RGB_2,
+	MDP_BLOCK_DMA_P,
+	MDP_BLOCK_DMA_S,
+	MDP_BLOCK_DMA_E,
+	MDP_BLOCK_MAX,
 };
 
 struct mdp_page_protection {
