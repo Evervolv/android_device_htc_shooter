@@ -1,5 +1,3 @@
-USE_CAMERA_STUB := true
-
 # inherit from the proprietary version
 -include vendor/htc/shooter/BoardConfigVendor.mk
 
@@ -11,14 +9,15 @@ TARGET_BOARD_PLATFORM_GPU := qcom-adreno200
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
 TARGET_ARCH_VARIANT := armv7-a-neon
+TARGET_ARCH_VARIANT_CPU := cortex-a8
+TARGET_ARCH_VARIANT_FPU := neon
 TARGET_CPU_SMP := true
 ARCH_ARM_HAVE_TLS_REGISTER := true
+ARCH_ARM_HAVE_VFP := true
 
 TARGET_BOOTLOADER_BOARD_NAME := shooter
 TARGET_NO_RADIOIMAGE := true
 TARGET_HAVE_TSLIB := false
-TARGET_GLOBAL_CFLAGS += -mfpu=neon -mfloat-abi=softfp
-TARGET_GLOBAL_CPPFLAGS += -mfpu=neon -mfloat-abi=softfp
 
 TARGET_SPECIFIC_HEADER_PATH := device/htc/shooter/include
 
@@ -36,9 +35,7 @@ WIFI_DRIVER_MODULE_NAME          := "bcm4329"
 WIFI_BAND                        := 802_11_ABG
 
 # Audio 
-#BOARD_USES_GENERIC_AUDIO := false
-#BOARD_PREBUILT_LIBAUDIO := true
-
+BOARD_USES_GENERIC_AUDIO := false
 # prevent breakage from QCOM_HARDWARE in system/core/include/system/audio.h
 COMMON_GLOBAL_CFLAGS += -DLEGACY_AUDIO_COMPAT
 
@@ -51,44 +48,31 @@ BOARD_HAVE_BLUETOOTH_BCM := true
 #BOARD_VENDOR_QCOM_GPS_LOC_API_AMSS_VERSION := 50000
 
 # Define egl.cfg location
-ARCH_ARM_HAVE_VFP := true
 USE_OPENGL_RENDERER := true
-TARGET_FORCE_CPU_UPLOAD := true
 TARGET_USES_C2D_COMPOSITION := true
 TARGET_USES_OVERLAY := true
 TARGET_USES_GENLOCK := true
 TARGET_USES_SF_BYPASS := true
 TARGET_HAVE_BYPASS := true
+#TARGET_HAVE_HDMI_OUT := true
+BOARD_USE_QCOM_PMEM := true
 TARGET_GRALLOC_USES_ASHMEM := true
-TARGET_HAVE_HDMI_OUT := true
-TARGET_HARDWARE_3D := true
+#TARGET_HARDWARE_3D := true
 BOARD_EGL_CFG := device/htc/shooter/prebuilt/system/lib/egl/egl.cfg
-BOARD_USES_ADRENO_200 := true
 BOARD_OVERLAY_FORMAT_YCbCr_420_SP := true
-BOARD_NO_RGBX_8888 := true
-#BOARD_USES_OVERLAY := true
-#BOARD_USES_HGL := true
+TARGET_FORCE_CPU_UPLOAD := true
+BOARD_HAS_SCREEN_OFF_FLICKER := true
 
 COMMON_GLOBAL_CFLAGS += -DREFRESH_RATE=60 -DQCOM_HARDWARE
 
-#COMMON_GLOBAL_CFLAGS += \
-#    -DREFRESH_RATE=60 \
-#    -DMISSING_EGL_EXTERNAL_IMAGE \
-#    -DMISSING_EGL_PIXEL_FORMAT_YV12 \
-#    -DMISSING_GRALLOC_BUFFERS
-
 BOARD_USES_QCOM_HARDWARE := true
 BOARD_USES_QCOM_LIBS := true
-BOARD_USES_QCOM_LIBRPC := true
-BOARD_USE_QCOM_PMEM := true
-BOARD_USES_QCOM_LEGACY := false
-BOARD_CAMERA_USE_GETBUFFERINFO := true
 
 # Legacy touchscreen support
 BOARD_USE_LEGACY_TOUCHSCREEN := true
 
+# RIL
 BOARD_USE_NEW_LIBRIL_HTC := true
-TARGET_PROVIDES_LIBRIL := vendor/htc/shooter/proprietary/libril.so
 
 BOARD_KERNEL_CMDLINE := no_console_suspend=1
 BOARD_KERNEL_BASE := 0x48000000
