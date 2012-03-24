@@ -67,7 +67,11 @@ version 4 - added sms to mms text threshold.
     <!-- If true, The text message over 160 characters will be sent in multi part.
          If false, The text message over 160 characters will be sent
          via multi media message. -->
-    <bool name="enableMultipartSMS">true</bool>
+    <bool name="enableMultipartSMS">false</bool>
+
+    <!-- If true, the text message will be split every 160 characters.
+         If false, the text will never be split before being sent. -->
+    <bool name="enableSplitSMS">true</bool>
 
     <!-- Maximum length for message text. Use a value of -1
          to indicate default value -->
