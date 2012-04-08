@@ -29,10 +29,10 @@ version 4 - added sms to mms text threshold.
     <int name="maxMessageSize">307200</int>
 
     <!-- Maximum height for an attached image -->
-    <int name="maxImageHeight">768</int>
+    <int name="maxImageHeight">1000</int>
 
     <!-- Maximum width for an attached image -->
-    <int name="maxImageWidth">1024</int>
+    <int name="maxImageWidth">1296</int>
 
     <!-- Maximum number of SMS message to save per thread before auto-delete kicks in.
          This is the default value. -->
@@ -51,10 +51,10 @@ version 4 - added sms to mms text threshold.
     <int name="maxMessageCountPerThread">5000</int>
 
     <!-- User-Agent parameter used in MMS http request -->
-    <string name="userAgent">Sprint APX515CKT Build/GRJ22</string>
+    <string name="userAgent">Sprint APX515CKT Build/GRH78C</string>
 
     <!-- UAProf URL -->
-    <string name="uaProfUrl">http://device.sprintpcs.com/HTC/APX515CKT/2086512.rdf</string>
+    <string name="uaProfUrl">http://device.sprintpcs.com/HTC/APX515CKT/0876513.rdf</string>
 
     <!-- Maximum number of recipients allowed per message. Use a value of -1
          to indicate no limit. -->
