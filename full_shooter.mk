@@ -101,6 +101,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     librs_jni \
     lights.shooter \
+    sensors.msm8660 \
     copybit.msm8660 \
     gralloc.msm8660 \
     hwcomposer.msm8660 \
