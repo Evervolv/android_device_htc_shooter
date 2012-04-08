@@ -39,11 +39,6 @@ WIFI_DRIVER_MODULE_ARG           := "firmware_path=/system/etc/firmware/fw_bcm43
 WIFI_DRIVER_MODULE_NAME          := "bcm4329"
 WIFI_BAND                        := 802_11_ABG
 
-# Audio 
-BOARD_USES_GENERIC_AUDIO := false
-# prevent breakage from QCOM_HARDWARE in system/core/include/system/audio.h
-COMMON_GLOBAL_CFLAGS += -DLEGACY_AUDIO_COMPAT
-
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_BCM := true

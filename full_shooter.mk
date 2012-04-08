@@ -41,14 +41,6 @@ PRODUCT_COPY_FILES += \
 ADDITIONAL_DEFAULT_PROPERTIES += \
     persist.service.adb.enable=1
 
-#Using prebuilt audio libs right now
-PRODUCT_COPY_FILES += \
-    device/htc/shooter/prebuilt/system/lib/hw/audio.primary.default.so:system/lib/hw/audio.primary.default.so \
-    device/htc/shooter/prebuilt/system/lib/hw/audio_policy.default.so:system/lib/hw/audio_policy.default.so \
-    device/htc/shooter/prebuilt/system/lib/hw/audio.a2dp.default.so:system/lib/hw/audio.a2dp.default.so
-
-
-
 #Add touchscreen config file
 PRODUCT_COPY_FILES += \
     device/htc/shooter/prebuilt/system/usr/idc/atmel-touchscreen.idc:system/usr/idc/atmel-touchscreen.idc \
@@ -105,6 +97,10 @@ PRODUCT_PACKAGES += \
     copybit.msm8660 \
     gralloc.msm8660 \
     hwcomposer.msm8660 \
+    audio.a2dp.default \
+    audio_policy.msm8660 \
+    audio.primary.msm8660 \
+    libaudioutils \
     libgenlock \
     libmemalloc \
     liboverlay \
