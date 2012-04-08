@@ -1,6 +1,7 @@
 /* include/linux/android_pmem.h
  *
  * Copyright (C) 2007 Google, Inc.
+ * Copyright (c) 2009-2010, Code Aurora Forum. All rights reserved.
  *
  * This software is licensed under the terms of the GNU General Public
  * License version 2, as published by the Free Software Foundation, and
@@ -15,7 +16,6 @@
 
 #ifndef _ANDROID_PMEM_H_
 #define _ANDROID_PMEM_H_
-
 #include <linux/fs.h>
 
 #define PMEM_KERNEL_TEST_MAGIC 0xc0
@@ -51,8 +51,11 @@
  * start of the mapped gpu regs (the vaddr returned by mmap) as the argument.
  */
 #define HW3D_REVOKE_GPU		_IOW(PMEM_IOCTL_MAGIC, 8, unsigned int)
+#define PMEM_CACHE_FLUSH    _IOW(PMEM_IOCTL_MAGIC, 8, unsigned int)
 #define HW3D_GRANT_GPU		_IOW(PMEM_IOCTL_MAGIC, 9, unsigned int)
+/*
 #define HW3D_WAIT_FOR_INTERRUPT	_IOW(PMEM_IOCTL_MAGIC, 10, unsigned int)
+*/
 
 #define PMEM_CLEAN_INV_CACHES	_IOW(PMEM_IOCTL_MAGIC, 11, unsigned int)
 #define PMEM_CLEAN_CACHES	_IOW(PMEM_IOCTL_MAGIC, 12, unsigned int)
@@ -135,10 +138,14 @@ int32_t pmem_kfree(const int32_t physaddr);
 struct android_pmem_platform_data
 {
 	const char* name;
+	/* starting physical address of memory region */
+	unsigned long start;
 	/* size of memory region */
 	unsigned long size;
 
 	enum pmem_allocator_type allocator_type;
+	/* set to indicate the region should not be managed with an allocator */
+	enum pmem_allocator_type no_allocator;
 	/* treated as a 'hidden' variable in the board files. Can be
 	 * set, but default is the system init value of 0 which becomes a
 	 * quantum of 4K pages.
@@ -151,8 +158,8 @@ struct android_pmem_platform_data
 	unsigned cached;
 	/* The MSM7k has bits to enable a write buffer in the bus controller*/
 	unsigned buffered;
-	/* which memory type (i.e. SMI, EBI1) this PMEM device is backed by */
-	unsigned memory_type;
+	/* This PMEM is on memory that may be powered off */
+	unsigned unstable;
 	/*
 	 * function to be called when the number of allocations goes from
 	 * 0 -> 1
@@ -173,13 +180,46 @@ struct android_pmem_platform_data
 	int map_on_demand;
 };
 
+/* flags in the following function defined as above. */
+int32_t pmem_kalloc(const size_t size, const uint32_t flags);
+int32_t pmem_kfree(const int32_t physaddr);
+
+#ifdef CONFIG_ANDROID_PMEM
+#ifndef CONFIG_ARCH_MSM8X60
+int is_pmem_file(struct file *file);
+#endif
+unsigned long get_pmem_id_addr(int id);
+int get_pmem_file(unsigned int fd, unsigned long *start, unsigned long *vstart,
+		  unsigned long *end, struct file **filp);
+int get_pmem_user_addr(struct file *file, unsigned long *start,
+		       unsigned long *end);
+void put_pmem_file(struct file* file);
+void flush_pmem_file(struct file *file, unsigned long start, unsigned long len);
 int pmem_setup(struct android_pmem_platform_data *pdata,
 	       long (*ioctl)(struct file *, unsigned int, unsigned long),
 	       int (*release)(struct inode *, struct file *));
-
 int pmem_remap(struct pmem_region *region, struct file *file,
 	       unsigned operation);
-#endif /* __KERNEL__ */
+
+#else
+static inline int is_pmem_file(struct file *file) { return 0; }
+static inline int get_pmem_file(int fd, unsigned long *start,
+				unsigned long *vstart, unsigned long *end,
+				struct file **filp) { return -ENOSYS; }
+static inline int get_pmem_user_addr(struct file *file, unsigned long *start,
+				     unsigned long *end) { return -ENOSYS; }
+static inline void put_pmem_file(struct file* file) { return; }
+static inline void flush_pmem_file(struct file *file, unsigned long start,
+				   unsigned long len) { return; }
+static inline int pmem_setup(struct android_pmem_platform_data *pdata,
+	      long (*ioctl)(struct file *, unsigned int, unsigned long),
+	      int (*release)(struct inode *, struct file *)) { return -ENOSYS; }
+
+static inline int pmem_remap(struct pmem_region *region, struct file *file,
+			     unsigned operation) { return -ENOSYS; }
+#endif
 
 #endif //_ANDROID_PPP_H_
+
+#endif
 

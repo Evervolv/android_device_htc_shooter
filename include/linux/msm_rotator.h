@@ -28,6 +28,8 @@
  */
 
 #ifndef __MSM_ROTATOR_H__
+#define CONFIG_MSM_MDP40 1 // Add this define for android build
+#ifdef CONFIG_MSM_MDP40
 
 #include <linux/types.h>
 #include <linux/msm_mdp.h>
@@ -76,5 +78,6 @@ struct msm_rotator_platform_data {
 	struct msm_rot_clocks *rotator_clks;
 	const char *regulator_name;
 };
+#endif
 #endif
 
