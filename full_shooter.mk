@@ -93,7 +93,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     librs_jni \
     lights.shooter \
-    sensors.msm8660 \
     copybit.msm8660 \
     gralloc.msm8660 \
     hwcomposer.msm8660 \
@@ -109,6 +108,10 @@ PRODUCT_PACKAGES += \
     libOmxVenc \
     libOmxVdec \
     com.android.future.usb.accessory
+
+# Sensors Module (Temporary)
+PRODUCT_COPY_FILES += \
+    device/htc/shooter/prebuilt/system/lib/hw/sensors.shooter.so:system/lib/hw/sensors.shooter.so
 
 # Keylayouts
 PRODUCT_COPY_FILES += \
