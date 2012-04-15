@@ -74,7 +74,7 @@ BOARD_USE_LEGACY_TOUCHSCREEN := true
 # RIL
 BOARD_USE_NEW_LIBRIL_HTC := true
 
-BOARD_KERNEL_CMDLINE := console=ttyHSL0 androidboot.hardware=shooter no_console_suspend=1
+BOARD_KERNEL_CMDLINE := no_console_suspend=1
 BOARD_KERNEL_BASE := 0x48000000
 BOARD_PAGE_SIZE := 2048
 
