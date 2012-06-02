@@ -30,12 +30,7 @@
 #include <pixelflinger/pixelflinger.h>
 #include <cutils/memory.h>
 
-#ifndef BOARD_LDPI_RECOVERY
-	#include "font_10x18.h"
-#else
-	#include "font_7x16.h"
-#endif
-
+#include "font_10x18.h"
 #include "minui.h"
 
 typedef struct {
@@ -91,11 +86,7 @@ static int get_framebuffer(GGLSurface *fb)
     fb->version = sizeof(*fb);
     fb->width = vi.xres;
     fb->height = vi.yres;
-#ifdef BOARD_HAS_JANKY_BACKBUFFER
-    fb->stride = fi.line_length/2;
-#else
     fb->stride = vi.xres_virtual;
-#endif
     fb->data = bits;
     fb->format = GGL_PIXEL_FORMAT_RGB_565;
     memset(fb->data, 0, vi.yres * vi.xres_virtual * vi.bits_per_pixel / 8);
@@ -105,13 +96,8 @@ static int get_framebuffer(GGLSurface *fb)
     fb->version = sizeof(*fb);
     fb->width = vi.xres;
     fb->height = vi.yres;
-#ifdef BOARD_HAS_JANKY_BACKBUFFER
-    fb->stride = fi.line_length/2;
-    fb->data = (void*) (((unsigned) bits) + vi.yres * fi.line_length);
-#else
     fb->stride = vi.xres_virtual;
     fb->data = (void*) (((unsigned) bits) + (vi.yres * vi.xres_virtual * vi.bits_per_pixel / 8));
-#endif
     fb->format = GGL_PIXEL_FORMAT_RGB_565;
     memset(fb->data, 0, vi.yres * vi.xres_virtual * vi.bits_per_pixel / 8);
 
@@ -166,30 +152,20 @@ void gr_flip(void)
     /* swap front and back buffers */
     gr_active_fb = (gr_active_fb + 1) & 1;
 
-#ifdef BOARD_HAS_FLIPPED_SCREEN
-    /* flip buffer 180 degrees for devices with physicaly inverted screens */
-    unsigned int i;
-    for (i = 1; i < (vi.xres * vi.yres); i++) {
-        unsigned short tmp = gr_mem_surface.data[i];
-        gr_mem_surface.data[i] = gr_mem_surface.data[(vi.xres * vi.yres * 2) - i];
-        gr_mem_surface.data[(vi.xres * vi.yres * 2) - i] = tmp;
-    }
-#endif
-
     /* copy data from the in-memory surface to the buffer we're about
-     * to make active. */ 
-    if(vi.bits_per_pixel == 32)
+     * to make active. */
+    if( vi.bits_per_pixel == 16)
     {
-        gr_flip_32((unsigned *)gr_framebuffer[gr_active_fb].data, \
-                   (unsigned short *)gr_mem_surface.data,
-                   (vi.xres_virtual * vi.yres));
+    	memcpy(gr_framebuffer[gr_active_fb].data, gr_mem_surface.data,
+    			vi.xres_virtual * vi.yres *2);
     }
     else
     {
-        memcpy(gr_framebuffer[gr_active_fb].data, gr_mem_surface.data,
-               vi.xres_virtual * vi.yres *2);
+    	gr_flip_32((unsigned *)gr_framebuffer[gr_active_fb].data, \
+    			(unsigned short *)gr_mem_surface.data,
+    			(vi.xres_virtual * vi.yres));
     }
-
+    
     /* inform the display driver */
     set_active_framebuffer(gr_active_fb);
 }
@@ -208,12 +184,6 @@ void gr_color(unsigned char r, unsigned char g, unsigned char b, unsigned char a
 int gr_measure(const char *s)
 {
     return gr_font->cwidth * strlen(s);
-}
-
-void gr_font_size(int *x, int *y)
-{
-    *x = gr_font->cwidth;
-    *y = gr_font->cheight;
 }
 
 int gr_text(int x, int y, const char *s)
@@ -344,9 +314,6 @@ int gr_init(void)
     gl->enable(gl, GGL_BLEND);
     gl->blendFunc(gl, GGL_SRC_ALPHA, GGL_ONE_MINUS_SRC_ALPHA);
 
-    gr_fb_blank(true);
-    gr_fb_blank(false);
-
     return 0;
 }
 
@@ -375,13 +342,4 @@ int gr_fb_height(void)
 gr_pixel *gr_fb_data(void)
 {
     return (unsigned short *) gr_mem_surface.data;
-}
-
-void gr_fb_blank(bool blank)
-{
-    int ret;
-
-    ret = ioctl(gr_fb_fd, FBIOBLANK, blank ? FB_BLANK_POWERDOWN : FB_BLANK_UNBLANK);
-    if (ret < 0)
-        perror("ioctl(): blank");
 }

@@ -1,47 +1,73 @@
-# system.prop for shooter
+#
+# system.prop for device
 #
 
-ro.sf.lcd_density=240
-
 debug.fb.rgb565 = 0
+debug.sf.hw=1
+debug.composition.type=c2d
+ro.sf.compbypass.enable=0
+dev.pm.dyn_samplingrate=1
+#debug.enabletr=true
+debug.qctwa.statusbar = 1
+debug.qctwa.preservebuf = 1
 
-#C2D
-debug.composition.type = c2d
-debug.qctwa.statusbar=1
-debug.qctwa.preservebuf=1
-
-# cm qcom build lub
+#cm qcom build lub
 com.qc.hardware=true
 com.qc.hdmi_out=false
 
+# board has 3D panel
+#persist.user.panel3D = 1
+
 rild.libpath=/system/lib/libhtc_ril.so
-ro.ril.def.preferred.network = 4
+# htc v4 ril
+ro.telephony.ril.v3=signalstrength
+ro.ril.enable.garbage.filter=0
 ro.telephony.default_network = 4
+gsm.sim.operator.alpha = sprint
+gsm.sim.operator.numeric = 310120
+gsm.sim.operator.iso-country = us
+gsm.operator.alpha = sprint
+gsm.operator.numeric = 310120
+gsm.operator.iso-country = us
+
+#
+# system props for the data modules
+#
+ro.use_data_netmgrd=true
+persist.data_netmgrd_nint=8
+persist.data_netmgrd_mtu=1472
+#
+
+#Modify MTU from 1500 to 1472 on 3G network
+ro.ril.set.mtu1472 = 1
+
 net.tcp.buffersize.wimax = 4096,221184,524288,4096,16384,110208
 
 wifi.interface=wlan0
 wifi.supplicant_scan_interval=15
+ro.com.google.locationfeatures = 1
+
+# density in DPI of the LCD of this board. This is used to scale the UI
+# appropriately. If this property is not defined, the default value is 160 dpi.
+ro.sf.lcd_density = 240
+
+# For auto backlight default value
+settings.display.autobacklight=1
+
+# For the default value of agps
+ro.ril.def.agps.mode = 2
 
 # The OpenGL ES API level that is natively supported by this device.
 # This is a 16.16 fixed point number
 ro.opengles.version = 131072
 
-# This is a high density device with more memory, so larger vm heaps for it.
-# Change to 32m, due to 2.3.3 GB already change to 32m
-dalvik.vm.heapsize=32m
+mobiledata.interfaces=rmnet0,wlan0,gprs,ppp0,wimax0
 
-# For the default value of agps
-ro.ril.def.agps.mode = 2
-
-#Modify MTU from 1500 to 1472 on 3G network
-ro.ril.set.mtu1472 = 1
-
-# Make cdma voicemail the default voicemail number.
-ro.cdma.voicemail.number = mine
-
-mobiledata.interfaces=rmnet0,gprs,wimax0
 # For emmc phone storage
 ro.phone_storage = 0
 
 # Make rmt_storage start at init
 ro.emmc = 1
+
+# System property for cabl
+ro.qualcomm.cabl=1
