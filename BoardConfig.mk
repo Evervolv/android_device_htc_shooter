@@ -38,7 +38,7 @@ TARGET_SCORPION_BIONIC_PLDSIZE := 128
 TARGET_BOOTLOADER_BOARD_NAME := shooter
 TARGET_PROVIDES_LIBRIL := vendor/htc/shooter/proprietary/libril.so
 
-BOARD_KERNEL_CMDLINE := no_console_suspend=1
+BOARD_KERNEL_CMDLINE := console=ttyHSL0 androidboot.hardware=shooter no_console_suspend=1
 BOARD_KERNEL_BASE := 0x48000000
 BOARD_KERNEL_PAGE_SIZE := 2048 
 
