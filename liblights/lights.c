@@ -1,18 +1,18 @@
 /*
- * Copyright (C) 2008 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+* Copyright (C) 2008 The Android Open Source Project
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+* http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
 
 
 // #define LOG_NDEBUG 0
@@ -45,8 +45,6 @@ static int g_buttons = 0;
 static int g_attention = 0;
 static int g_haveAmberLed = 0;
 static int g_wimax = 0;
-static int g_caps = 0;
-static int g_func = 0;
 
 char const*const TRACKBALL_FILE
         = "/sys/class/leds/jogball-backlight/brightness";
@@ -87,14 +85,9 @@ char const*const KEYBOARD_FILE
 char const*const BUTTON_FILE
         = "/sys/class/leds/button-backlight/brightness";
 
-char const*const CAPS_LED_FILE
-        = "/sys/class/leds/caps/brightness";
-
-char const*const FUNC_LED_FILE
-        = "/sys/class/leds/func/brightness";
 /**
- * device methods
- */
+* device methods
+*/
 
 void init_globals(void)
 {
@@ -105,7 +98,7 @@ void init_globals(void)
     g_haveTrackballLight = (access(TRACKBALL_FILE, W_OK) == 0) ? 1 : 0;
 
     /* figure out if we have the amber LED or not.
-       If yes, just support green and amber.         */
+If yes, just support green and amber. */
     g_haveAmberLed = (access(AMBER_LED_FILE, W_OK) == 0) ? 1 : 0;
 }
 
@@ -207,32 +200,6 @@ set_light_buttons(struct light_device_t* dev,
 }
 
 static int
-set_light_caps(struct light_device_t* dev,
-    struct light_state_t const* state)
-{
-    int err = 0;
-    int on = is_lit(state);
-    pthread_mutex_lock(&g_lock);
-    g_caps = on;
-    err = write_int(CAPS_LED_FILE, on?255:0);
-    pthread_mutex_unlock(&g_lock);
-    return err;
-}
-
-static int
-set_light_func(struct light_device_t* dev,
-    struct light_state_t const* state)
-{
-    int err = 0;
-    int on = is_lit(state);
-    pthread_mutex_lock(&g_lock);
-    g_func = on;
-    err = write_int(FUNC_LED_FILE, on?255:0);
-    pthread_mutex_unlock(&g_lock);
-    return err;
-}
-
-static int
 set_speaker_light_locked(struct light_device_t* dev,
         struct light_state_t const* state)
 {
@@ -261,8 +228,8 @@ set_speaker_light_locked(struct light_device_t* dev,
     colorRGB = state->color;
 
 #if 0
-    LOGD("set_speaker_light_locked colorRGB=%08X, onMS=%d, offMS=%d\n",
-            colorRGB, onMS, offMS);
+LOGD("set_speaker_light_locked colorRGB=%08X, onMS=%d, offMS=%d\n",
+colorRGB, onMS, offMS);
 #endif
 
     red = (colorRGB >> 16) & 0xFF;
@@ -316,13 +283,13 @@ set_speaker_light_locked(struct light_device_t* dev,
         }
         write_int(RED_BLINK_FILE, blink);
     } else {
-	if (red) {
-		write_int(GREEN_BLINK_FILE, 0);
-		write_int(AMBER_BLINK_FILE, blink);
-	} else {
-		write_int(AMBER_BLINK_FILE, 0);
-		write_int(GREEN_BLINK_FILE, blink);
-	}
+if (red) {
+write_int(GREEN_BLINK_FILE, 0);
+write_int(AMBER_BLINK_FILE, blink);
+} else {
+write_int(AMBER_BLINK_FILE, 0);
+write_int(GREEN_BLINK_FILE, blink);
+}
     }
 
     return 0;
@@ -402,8 +369,8 @@ close_lights(struct light_device_t *dev)
 /******************************************************************************/
 
 /**
- * module methods
- */
+* module methods
+*/
 
 /** Open a new instance of a lights device using name */
 static int open_lights(const struct hw_module_t* module, char const* name,
@@ -430,12 +397,6 @@ static int open_lights(const struct hw_module_t* module, char const* name,
     else if (0 == strcmp(LIGHT_ID_ATTENTION, name)) {
         set_light = set_light_attention;
     }
-    else if (0 == strcmp(LIGHT_ID_CAPS, name)) {
-        set_light = set_light_caps;
-    }
-    else if (0 == strcmp(LIGHT_ID_FUNC, name)) {
-        set_light = set_light_func;
-    }
     else {
         return -EINVAL;
     }
@@ -457,12 +418,12 @@ static int open_lights(const struct hw_module_t* module, char const* name,
 
 
 static struct hw_module_methods_t lights_module_methods = {
-    .open =  open_lights,
+    .open = open_lights,
 };
 
 /*
- * The lights Module
- */
+* The lights Module
+*/
 const struct hw_module_t HAL_MODULE_INFO_SYM = {
     .tag = HARDWARE_MODULE_TAG,
     .version_major = 1,
