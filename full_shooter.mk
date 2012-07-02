@@ -147,19 +147,13 @@ PRODUCT_COPY_FILES += \
     device/htc/shooter/prebuilt/system/etc/vold.fstab:system/etc/vold.fstab \
     device/htc/shooter/prebuilt/system/etc/apns-conf.xml:system/etc/apns-conf.xml
 
-## KernAl and modules
-ifeq ($(TARGET_PREBUILT_KERNEL),)
-	LOCAL_KERNEL := device/htc/shooter/prebuilt/root/kernel
-else
-LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
+# Kernel Modules
+ifneq ($(BUILD_KERNEL),true)
+    PRODUCT_COPY_FILES += $(shell \
+        find device/htc/shooter/prebuilt/system/lib/modules -name '*.ko' \
+        | sed -r 's/^\/?(.*\/)([^/ ]+)$$/\1\2:system\/lib\/modules\/\2/' \
+        | tr '\n' ' ')
 endif
-
-PRODUCT_COPY_FILES += \
-    $(LOCAL_KERNEL):kernel
-
-PRODUCT_COPY_FILES += \
-    device/htc/shooter/prebuilt/system/lib/modules/bcm4329.ko:system/lib/modules/bcm4329.ko \
-    device/htc/shooter/prebuilt/system/lib/modules/sequans_sdio.ko:system/lib/modules/sequans_sdio.ko 
 
 ## HAX
 PRODUCT_COPY_FILES += \

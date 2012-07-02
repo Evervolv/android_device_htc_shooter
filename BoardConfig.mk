@@ -48,6 +48,10 @@ BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := shooter
 #BOARD_HAVE_SQN_WIMAX := true
 BOARD_USES_QCOM_LIBS := true
 
+TARGET_PREBUILT_KERNEL := device/htc/shooter/prebuilt/root/kernel
+TARGET_KERNEL_CONFIG   := shooter_defconfig
+BUILD_KERNEL           := true
+
 # cat /proc/emmc
 #dev:        size     erasesize name
 # mmcblk0p17: 00040000 00000200 "misc"
@@ -73,8 +77,6 @@ BOARD_BOOTIMAGE_PARTITION_SIZE := 5242880
 BOARD_FLASH_BLOCK_SIZE := 262144
 BOARD_CUSTOM_GRAPHICS := ../../../device/htc/shooter/recovery/graphics.c
 TARGET_RELEASETOOLS_EXTENSIONS := device/htc/common
-
-TARGET_PREBUILT_KERNEL := device/htc/shooter/prebuilt/root/kernel
 
 BOARD_SDCARD_DEVICE_PRIMARY := /dev/block/mmcblk1p1
 BOARD_SDCARD_DEVICE_SECONDARY := /dev/block/mmcblk1
