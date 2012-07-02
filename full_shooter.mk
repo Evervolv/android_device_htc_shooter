@@ -85,6 +85,10 @@ PRODUCT_PACKAGES += \
     librs_jni \
     com.android.future.usb.accessory
 
+# Temporary adb hack
+ADDITIONAL_DEFAULT_PROPERTIES += \
+    persist.service.adb.enable=1
+
 ## dsp Audio
 PRODUCT_COPY_FILES += \
     device/htc/shooter/dsp/AIC3254_REG.csv:system/etc/AIC3254_REG.csv \
