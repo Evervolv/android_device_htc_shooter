@@ -41,12 +41,14 @@ BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := shooter
 
 COMMON_GLOBAL_CFLAGS += -DQCOM_ROTATOR_KERNEL_FORMATS
 TARGET_USES_OVERLAY := true
+# Hardware Rendering
+TARGET_USES_PMEM := true
 
 #BOARD_HAVE_SQN_WIMAX := true
 
 TARGET_PREBUILT_KERNEL := device/htc/shooter/prebuilt/root/kernel
 TARGET_KERNEL_CONFIG   := shooter_defconfig
-BUILD_KERNEL           := true
+#BUILD_KERNEL           := true
 
 # cat /proc/emmc
 #dev:        size     erasesize name

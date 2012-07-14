@@ -64,7 +64,7 @@ DEVICE_PACKAGE_OVERLAYS += device/htc/shooter/overlay
 
 # Permissions
 PRODUCT_COPY_FILES += \
-    frameworks/base/data/etc/android.hardware.telephony.cdma.xml:system/etc/permissions/android.hardware.telephony.cdma.xml
+    frameworks/native/data/etc/android.hardware.telephony.cdma.xml:system/etc/permissions/android.hardware.telephony.cdma.xml
 
 # GPS and Lights
 PRODUCT_PACKAGES += \
@@ -73,11 +73,11 @@ PRODUCT_PACKAGES += \
 
 ## qcom/media
 PRODUCT_PACKAGES += \
-    libstagefrighthw \
-    libOmxCore \
-    libOmxVdec \
-    libOmxVenc \
-    libdivxdrmdecrypt
+    libstagefrighthw
+#    libOmxCore \
+#    libOmxVdec \
+#    libOmxVenc \
+#    libdivxdrmdecrypt
 
 ## misc
 PRODUCT_PACKAGES += \
@@ -177,7 +177,7 @@ $(call inherit-product, device/htc/shooter/media_a1026.mk)
 ## htc audio settings
 $(call inherit-product, device/htc/shooter/media_htcaudio.mk)
 
-$(call inherit-product, frameworks/base/build/phone-xhdpi-1024-dalvik-heap.mk)
+$(call inherit-product, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)
 
 $(call inherit-product, build/target/product/full_base_telephony.mk)
 

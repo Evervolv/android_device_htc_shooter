@@ -2,6 +2,6 @@
     {
         "repository": "android_kernel_htc_shooter",
         "target_path": "kernel/htc/shooter",
-        "branch": "ics"
+        "branch": "jellybean"
     }
 ]
