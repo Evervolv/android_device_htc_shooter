@@ -32,8 +32,8 @@ PRODUCT_PACKAGE_OVERLAYS += \
     vendor/ev/overlay/qhd
 
 # Hot reboot
-#PRODUCT_PACKAGE_OVERLAYS += \
-#    vendor/ev/overlay/hot_reboot
+PRODUCT_PACKAGE_OVERLAYS += \
+    vendor/ev/overlay/hot_reboot
 
 # USB
 ADDITIONAL_DEFAULT_PROPERTIES += \
