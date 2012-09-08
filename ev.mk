@@ -12,7 +12,7 @@ PRODUCT_BRAND := sprint
 PRODUCT_DEVICE := shooter
 PRODUCT_MODEL := PG86100
 PRODUCT_MANUFACTURER := HTC
-PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=htc_shooter BUILD_FINGERPRINT=sprint/htc_shooter/shooter:2.3.4/GRJ22/245066.5:user/release-keys PRIVATE_BUILD_DESC="2.17.651.5 CL245066 release-keys"
+PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=htc_shooter BUILD_FINGERPRINT="sprint/htc_shooter/shooter:4.0.3/IML74K/130920.2:user/release-keys" PRIVATE_BUILD_DESC="2.08.651.2 CL130920 release-keys
 
 # Set up the product codename, build version & MOTD.
 PRODUCT_CODENAME := Neco
@@ -38,5 +38,3 @@ PRODUCT_PACKAGE_OVERLAYS += \
 # USB
 ADDITIONAL_DEFAULT_PROPERTIES += \
     persist.sys.usb.config=mass_storage
-
-#ADDITIONAL_DEFAULT_PROPERTIES += persist.sys.usb.config=mtp,adb
