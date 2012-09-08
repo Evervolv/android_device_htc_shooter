@@ -33,10 +33,10 @@ PRODUCT_COPY_FILES += \
 
 ## ramdisk stuffs
 PRODUCT_COPY_FILES += \
-    device/htc/shooter/prebuilt/root/init:root/init \
     device/htc/shooter/prebuilt/root/init.shooter.rc:root/init.shooter.rc \
     device/htc/shooter/prebuilt/root/init.shooter.usb.rc:root/init.shooter.usb.rc \
-    device/htc/shooter/prebuilt/root/ueventd.shooter.rc:root/ueventd.shooter.rc
+    device/htc/shooter/prebuilt/root/ueventd.shooter.rc:root/ueventd.shooter.rc \
+    device/htc/shooter/prebuilt/root/fstab.shooter:root/fstab.shooter
 
 # BCM4329 BT Firmware
 PRODUCT_COPY_FILES += \

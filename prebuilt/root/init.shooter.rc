@@ -1,25 +1,22 @@
 import init.shooter.usb.rc
 
 on early-init
-	export EXTERNAL_STORAGE /mnt/sdcard
-	mkdir /mnt/sdcard 0000 system system
-	# for backwards compatibility
-	symlink /mnt/sdcard /sdcard
+    mkdir /storage 0050 system sdcard_r
+    mkdir /storage/sdcard0 0000 system system
 
-on early-fs
-    mkdir /system
-    mkdir /data 0771 system system
-    mkdir /cache 0770 system cache
-    mkdir /devlog 0700 root root
+    # for backwards compatibility
+    symlink /storage/sdcard0 /sdcard
+    symlink /storage/sdcard0 /mnt/sdcard
 
     #8x60: firmware
     rm /vendor
     mkdir /vendor 0771 system system
-    mkdir /vendor/etc 0771 system system
     mkdir /vendor/firmware 0771 system system
     mkdir /vendor/firmware/misc 0771 system system
+
     wait /dev/block/mmcblk0p18
     mount vfat /dev/block/mmcblk0p18 /vendor/firmware/misc ro shortname=lower
+
     symlink /vendor/firmware/misc/q6.b07 /vendor/firmware/q6.b07
     symlink /vendor/firmware/misc/q6.b06 /vendor/firmware/q6.b06
     symlink /vendor/firmware/misc/q6.b05 /vendor/firmware/q6.b05
@@ -40,51 +37,46 @@ on early-fs
     symlink /vendor/firmware/misc/modem.b01 /vendor/firmware/modem.b01
     symlink /vendor/firmware/misc/modem.b00 /vendor/firmware/modem.b00
     symlink /vendor/firmware/misc/modem.mdt /vendor/firmware/modem.mdt
+
+    # Force loading of modem and Q6 images
+    write /dev/smd_pkt_loopback 1
+
+on init
+    mkdir /devlog 0700 root root
+
+on emmc-fs
+    # mount all mcc partitions
+    mount_all /fstab.shooter
+
+    setprop ro.crypto.tmpfs_options size=128m,mode=0771,uid=1000,gid=1000
+
     symlink /system/vendor/firmware/fw_bcmdhd.bin /vendor/firmware/fw_bcmdhd.bin
     symlink /system/vendor/firmware/fw_bcmdhd_apsta.bin /vendor/firmware/fw_bcmdhd_apsta.bin
     symlink /system/vendor/firmware/fw_bcmdhd_p2p.bin /vendor/firmware/fw_bcmdhd_p2p.bin
     symlink /system/vendor/firmware/bcm4329.hcd /vendor/firmware/bcm4329.hcd
-    mount ext4 /dev/block/mmcblk0p23 /system wait ro data=ordered noauto_da_alloc
-    setprop ro.crypto.tmpfs_options size=128m,mode=0771,uid=1000,gid=1000
-    mount ext4 /dev/block/mmcblk0p24 /data wait noatime nosuid nodev data=ordered noauto_da_alloc
-    mount ext4 /dev/block/mmcblk0p25 /cache wait noatime nosuid nodev data=ordered noauto_da_alloc
-    mount ext4 /dev/block/mmcblk0p28 /devlog wait noatime nosuid nodev data=ordered noauto_da_alloc
+
+    mkdir /vendor/etc 0771 system system
+    symlink /system/vendor/etc/audio_effects.conf /vendor/etc/audio_effects.conf
 
 on post-fs-data
     # double check the perms and set owner
     chown root root /devlog
     chmod 0700 /devlog
 
-    mount rootfs rootfs / remount
-
-    # for Invense MPU3050
-    chmod 0664 /dev/mpu
-    chmod 0664 /dev/mpuirq
-    chmod 0664 /dev/timerirq
-    chown system system /dev/mpu
-    chown system system /dev/mpuirq
-    chown system system /dev/timerirq
-
-    mkdir /data/radio 0770 radio radio
-
-    # Wifi
-    mkdir /data/misc 1771 system misc
-    mkdir /data/misc/wifi 0770 wifi wifi
-    mkdir /data/misc/wifi/sockets 0770 wifi wifi
-    mkdir /data/misc/dhcp 0770 dhcp dhcp
-    chown dhcp dhcp /data/misc/dhcp
-
-    mkdir /data/audio 0770 media audio
-    # Enable the setgid bit on the directory
-    chmod 2770 /data/audio
-
-    mkdir /data/radio 0770 radio radio
-    chmod 2770 /data/radio
-
     # Set indication (checked by vold) that we have finished this action
     setprop vold.post_fs_data_done 1
 
-on init
+on boot
+    # Chown polling nodes as needed from UI running on system server
+    chmod 0664 /sys/devices/platform/msm_sdcc.1/polling
+    chmod 0664 /sys/devices/platform/msm_sdcc.2/polling
+    chmod 0664 /sys/devices/platform/msm_sdcc.3/polling
+    chmod 0664 /sys/devices/platform/msm_sdcc.4/polling
+    chown system system /sys/devices/platform/msm_sdcc.1/polling
+    chown system system /sys/devices/platform/msm_sdcc.2/polling
+    chown system system /sys/devices/platform/msm_sdcc.3/polling
+    chown system system /sys/devices/platform/msm_sdcc.4/polling
+
     # bluetooth power up/down interface
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
@@ -93,6 +85,25 @@ on init
     # bluetooth MAC address programming
     chown bluetooth bluetooth /sys/module/htc_bdaddress/parameters/bdaddress
     setprop ro.bt.bdaddr_path /sys/module/htc_bdaddress/parameters/bdaddress
+
+    # for modem link
+    chown system system /sys/module/serial/parameters/modem_enabled
+
+    # Wifi
+    mkdir /data/misc 1771 system misc
+    mkdir /data/misc/wifi 0770 wifi wifi
+    mkdir /data/misc/wifi/sockets 0770 wifi wifi
+    mkdir /data/misc/dhcp 0770 dhcp dhcp
+    chown dhcp dhcp /data/misc/dhcp
+
+    # create symlink for fb1 as HDMI
+    symlink /dev/graphics/fb1 /dev/graphics/hdmi
+
+    # audio
+    mkdir /data/audio 2770 media audio
+
+    # radio
+    mkdir /data/radio 2770 radio radio
 
     # Permissions for call status and camera LED
     chmod 0666 /sys/camera_led_status/led_ril_status
@@ -112,29 +123,10 @@ on init
 
     chmod 0444 /sys/devices/platform/msm_hsusb/gadget/usb_state
 
-    # create symlink for fb1 as HDMI
-    symlink /dev/graphics/fb1 /dev/graphics/hdmi
-
-    # Remove write permissions to video related nodes
-    chmod 0664 /sys/devices/virtual/graphics/fb1/hpd
-    chmod 0664 /sys/devices/virtual/graphics/fb1/video_mode
-    chmod 0664 /sys/devices/virtual/graphics/fb1/format_3d
-
-    # Change owner and group for media server and surface flinger
-    chown system system /sys/devices/virtual/graphics/fb1/format_3d
-    chmod 0644 /sys/devices/virtual/graphics/fb1/format_3d
-    chown system system /sys/devices/platform/panel_3d/3D_mode
-    chmod 0664 /sys/devices/platform/panel_3d/3D_mode
-
     # for wireless modem
-    chown system system /sys/module/serial/parameters/modem_enabled
     chown system system /dev/ttyHSUSB0
     chown system system /dev/ttySA0
     chown system system /dev/smd9
-
-    # for Flip to speaker
-    chown radio radio /sys/class/htc_accelerometer/accelerometer/PhoneOnOffFlag
-    chown radio radio /sys/class/htc_ecompass/ecompass/PhoneOnOffFlag
 
     # for Optical sensors
     chown system system /sys/class/optical_sensors/lightsensor/ls_adc
@@ -144,15 +136,6 @@ on init
     chown system system /sys/class/optical_sensors/proximity/ps_kadc
     chown system system /sys/class/optical_sensors/proximity/ps_led
     chown system system /sys/class/optical_sensors/proximity/ps_test_mode
-
-    # for CM performance
-    chown root system /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies
-    chown root system /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors
-    chown root system /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq
-
-    # for simlock
-    chown radio radio /dev/simlock
-    chmod 0660 /dev/simlock
 
     # for charging function
     chown radio radio /sys/module/htc_battery_8x60/parameters/phone_call
@@ -165,52 +148,23 @@ on init
     # for Slate charging timer
     chown radio /sys/class/power_supply/battery/charger_timer
 
+    # for Flip to speaker
+    chown radio radio /sys/class/htc_accelerometer/accelerometer/PhoneOnOffFlag
+    chown radio radio /sys/class/htc_ecompass/ecompass/PhoneOnOffFlag
+
+    # Remove write permissions to video related nodes
+    chmod 0664 /sys/devices/virtual/graphics/fb1/hpd
+    chmod 0664 /sys/devices/virtual/graphics/fb1/video_mode
+    chmod 0664 /sys/devices/virtual/graphics/fb1/format_3d
+
+    # Change owner and group for media server and surface flinger
+    chown system system /sys/devices/virtual/graphics/fb1/format_3d
+
+    chown system system /sys/devices/platform/panel_3d/3D_mode
+    chmod 0664 /sys/devices/platform/panel_3d/3D_mode
+
     chown system /sys/devices/platform/rs300000a7.65536/force_sync
     chown system /sys/devices/platform/rs300000a7.65536/sync_sts
-
-    chmod 0664 /sys/devices/platform/msm_sdcc.1/polling
-    chmod 0664 /sys/devices/platform/msm_sdcc.2/polling
-    chmod 0664 /sys/devices/platform/msm_sdcc.3/polling
-    chmod 0664 /sys/devices/platform/msm_sdcc.4/polling
-
-    # Chown polling nodes as needed from UI running on system server
-    chown system system /sys/devices/platform/msm_sdcc.1/polling
-    chown system system /sys/devices/platform/msm_sdcc.2/polling
-    chown system system /sys/devices/platform/msm_sdcc.3/polling
-    chown system system /sys/devices/platform/msm_sdcc.4/polling
-
-    # Overwrite framework low memory killer setting
-    write /sys/module/lowmemorykiller/parameters/minfree 2048,3072,4096,6144,8192,12288
-    write /sys/module/lowmemorykiller/parameters/minfile 2048,3072,4096,6144,8192,12288
-    write /sys/module/lowmemorykiller/parameters/check_filepages 1
-
-    # HTC Phone Call
-    chown radio /sys/module/gpio_event/parameters/phone_call_status
-
-on early-boot
-    # set RLIMIT_MEMLOCK to 64MB
-    setrlimit 8 67108864 67108864
-
-on boot
-    mount debugfs /sys/kernel/debug /sys/kernel/debug
-
-# Define TCP buffer sizes for various networks
-# ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,
-    setprop net.tcp.buffersize.default 4096,87380,110208,4096,16384,110208
-    setprop net.tcp.buffersize.wifi 524288,1048576,2097152,262144,524288,1048576
-    setprop net.tcp.buffersize.lte 4094,87380,1220608,4096,16384,1220608
-    setprop net.tcp.buffersize.umts 4094,87380,110208,4096,16384,110208
-    setprop net.tcp.buffersize.hspa 4094,87380,1220608,4096,16384,1220608
-    setprop net.tcp.buffersize.hsupa 4094,87380,1220608,4096,16384,1220608
-    setprop net.tcp.buffersize.hsdpa 4094,87380,1220608,4096,16384,1220608
-    setprop net.tcp.buffersize.edge 4093,26280,35040,4096,16384,35040
-    setprop net.tcp.buffersize.gprs 4092,8760,11680,4096,8760,11680
-    setprop net.tcp.buffersize.evdo_b 4094,87380,262144,4096,16384,262144
-
-# Assign TCP buffer thresholds to be ceiling value of technology maximums
-# Increased technology maximums should be reflected here.
-    write /proc/sys/net/core/rmem_max 3461120
-    write /proc/sys/net/core/wmem_max 3461120
 
 # Force loading of modem and Q6 images
 service load-modem /system/bin/load-modem.sh
@@ -239,33 +193,33 @@ service dhcpcd_wlan0 /system/bin/dhcpcd -ABKL
     oneshot
 
 service dhcpcd_p2p /system/bin/dhcpcd -aABKL
-    class late_start
+    class main
     disabled
     oneshot
 
 service dhcpcd_bnep0 /system/bin/dhcpcd -ABKL
-    class late_start
+    class main
     disabled
     oneshot
 
 service iprenew_wlan0 /system/bin/dhcpcd -n
-    class late_start
+    class main
     disabled
     oneshot
 
 service iprenew_p2p /system/bin/dhcpcd -n
-    class late_start
+    class main
     disabled
     oneshot
 
 service iprenew_bnep0 /system/bin/dhcpcd -n
-    class late_start
+    class main
     disabled
     oneshot
 
 # bugreport is triggered by the KEY_VOLUMEUP and KEY_VOLUMEDOWN keycodes
 service bugreport /system/bin/dumpstate -d -v -o /sdcard/bugreports/bugreport
-    class late_start
+    class main
     disabled
     oneshot
     keycodes 114 115
@@ -277,7 +231,6 @@ service hciattach /system/bin/brcm_patchram_plus --enable_hci \
     user bluetooth
     group bluetooth net_bt_admin
     disabled
-    oneshot
 
 service rmt_storage /system/bin/rmt_storage /dev/block/mmcblk0p26 /dev/block/mmcblk0p27 /dev/block/mmcblk0p19
     class core
@@ -295,7 +248,7 @@ on property:service.modem.enable=0
     stop modem
 
 service hdmid /system/bin/hdmid
-    class late_start
+    class main
     socket hdmid stream 0660 root system graphics
     disabled
 
@@ -303,7 +256,7 @@ on property:ro.hdmi.enable=true
     start hdmid
 
 service htcbatt /system/bin/htcbatt
-    class late_start
+    class main
     user root
 
 service mpdecision /system/bin/mpdecision --no_sleep --avg_comp
@@ -339,7 +292,7 @@ service htc_ebdlogd_rel /system/bin/htc_ebdlogd -s -k -n 10 -N 10
     ioprio idle 0
 
 service 3d_camera /system/bin/3D_calibration
-    class late_start
+    class main
     user root
 
 on property:ro.build.tags=test-keys
@@ -350,14 +303,12 @@ on property:ro.build.tags=release-keys
 
 # QMUX must be in multiple groups to support external process connections
 service qmuxd /system/bin/qmuxd
-    class late_start
+    class main
     user radio
     group radio audio bluetooth gps
 
 service netmgrd /system/bin/netmgrd
-    class late_start
+    class main
 
 on property:sys.radio.shutdown=true
    exec /system/bin/sh /system/etc/init.qcom.efs.sync.sh
-   user root
-   group root

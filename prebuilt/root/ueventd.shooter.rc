@@ -22,7 +22,10 @@
 /dev/akm8975_aot        0640    compass     system
 /dev/cm3602             0640    compass     system
 /dev/lightsensor        0640    system      system
- 
+/dev/mpu                0664    system      system
+/dev/mpuirq             0664    system      system
+/dev/timerirq           0664    system      system
+
 #for audio
 /dev/msm_acdb	        0660    system      audio
 /dev/codec_aic3254      0660    system      audio
@@ -75,3 +78,6 @@
 
 # wifi
 /dev/rfkill             0660    root        wifi
+
+# simlock
+/dev/simlock            0660    radio       radio
