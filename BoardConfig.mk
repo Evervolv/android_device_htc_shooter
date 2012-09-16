@@ -50,6 +50,9 @@ TARGET_PREBUILT_KERNEL := device/htc/shooter/prebuilt/root/kernel
 TARGET_KERNEL_CONFIG   := shooter_defconfig
 #BUILD_KERNEL           := true
 
+# Custom lun file path
+TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/class/android_usb/android0/f_mass_storage/lun0/file
+
 # cat /proc/emmc
 #dev:        size     erasesize name
 # mmcblk0p17: 00040000 00000200 "misc"
