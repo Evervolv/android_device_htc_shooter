@@ -1,5 +1,6 @@
 # Inherit AOSP device configuration for inc.
-$(call inherit-product, device/htc/shooter/full_shooter.mk)
+#$(call inherit-product, device/htc/shooter/full_shooter.mk)
+$(call inherit-product, device/htc/shooter/device.mk)
 
 # Inherit some common evervolv stuff.
 $(call inherit-product, vendor/ev/config/common_full_phone.mk)

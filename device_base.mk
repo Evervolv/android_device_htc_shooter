@@ -14,11 +14,14 @@
 # limitations under the License.
 #
 
-# We need the kernel version
+# Include shooter's BoardConfig.mk
 include device/htc/shooter/BoardConfig.mk
 
 # common msm8660 configs
 $(call inherit-product, device/htc/msm8660-common/msm8660.mk)
+
+## overlays
+DEVICE_PACKAGE_OVERLAYS += device/htc/shooter/overlay
 
 ## The gps config appropriate for this device
 PRODUCT_COPY_FILES += device/common/gps/gps.conf_US:system/etc/gps.conf
@@ -45,22 +48,12 @@ PRODUCT_COPY_FILES += \
 ## (2) Also get non-open-source specific aspects if available
 $(call inherit-product-if-exists, vendor/htc/shooter/shooter-vendor.mk)
 
-## CDMA Sprint stuffs
-PRODUCT_PROPERTY_OVERRIDES += \
-	ro.com.google.clientidbase=android-sprint-us \
-	ro.com.google.locationfeatures=1 \
-	ro.cdma.home.operator.numeric=310120 \
-	ro.cdma.home.operator.alpha=Sprint
-
 ## misc
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.setupwizard.enable_bypass=1
     dalvik.vm.lockprof.threshold=500 \
     ro.com.google.locationfeatures=1 \
     dalvik.vm.dexopt-flags=m=y
-
-## overlays
-DEVICE_PACKAGE_OVERLAYS += device/htc/shooter/overlay
 
 # Permissions
 PRODUCT_COPY_FILES += \
