@@ -20,9 +20,6 @@ include device/htc/shooter/BoardConfig.mk
 # common msm8660 configs
 $(call inherit-product, device/htc/msm8660-common/msm8660.mk)
 
-## overlays
-DEVICE_PACKAGE_OVERLAYS += device/htc/shooter/overlay
-
 ## The gps config appropriate for this device
 PRODUCT_COPY_FILES += device/common/gps/gps.conf_US:system/etc/gps.conf
 
@@ -50,7 +47,7 @@ $(call inherit-product-if-exists, vendor/htc/shooter/shooter-vendor.mk)
 
 ## misc
 PRODUCT_PROPERTY_OVERRIDES += \
-	ro.setupwizard.enable_bypass=1
+    ro.setupwizard.enable_bypass=1 \
     dalvik.vm.lockprof.threshold=500 \
     ro.com.google.locationfeatures=1 \
     dalvik.vm.dexopt-flags=m=y
@@ -144,8 +141,7 @@ $(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4329
 PRODUCT_LOCALES += en
 
 PRODUCT_COPY_FILES += \
-    device/htc/shooter/prebuilt/system/etc/vold.fstab:system/etc/vold.fstab \
-    device/htc/shooter/prebuilt/system/etc/apns-conf.xml:system/etc/apns-conf.xml
+    device/htc/shooter/prebuilt/system/etc/vold.fstab:system/etc/vold.fstab
 
 # Kernel Modules
 ifneq ($(BUILD_KERNEL),true)
