@@ -44,6 +44,9 @@ TARGET_USES_OVERLAY := true
 # Hardware Rendering
 TARGET_USES_PMEM := true
 
+# FFC Camera
+BOARD_HAVE_HTC_FFC :=true
+
 #BOARD_HAVE_SQN_WIMAX := true
 
 TARGET_PREBUILT_KERNEL := device/htc/shooter/prebuilt/root/kernel
