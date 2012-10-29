@@ -17,12 +17,9 @@ PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=htc_shooter BUILD_FINGERPRINT="spri
 
 # Set up the product codename, build version & MOTD.
 PRODUCT_CODENAME := Neco
-PRODUCT_VERSION_DEVICE_SPECIFIC := p1
+PRODUCT_VERSION_DEVICE_SPECIFIC := a1
 
 PRODUCT_MOTD :="\n\n\n--------------------MESSAGE---------------------\nThank you for choosing Evervolv for your HTC Evo 3D\nPlease visit us at \#evervolv on irc.freenode.net\nFollow @preludedrew for the latest Evervolv updates\nGet the latest rom at evervolv.com\n------------------------------------------------\n"
-
-PRODUCT_PACKAGES += \
-    Camera
 
 # Copy compatible prebuilt files
 PRODUCT_COPY_FILES +=  \
