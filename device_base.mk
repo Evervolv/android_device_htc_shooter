@@ -151,10 +151,6 @@ ifneq ($(BUILD_KERNEL),true)
         | tr '\n' ' ')
 endif
 
-## HAX
-PRODUCT_COPY_FILES += \
-    device/htc/shooter/prebuilt/system/lib/libcryp98.so:system/lib/libcryp98.so
-
 $(call inherit-product-if-exists, vendor/htc/shooter/shooter-vendor.mk)
 
 PRODUCT_COPY_FILES += \
