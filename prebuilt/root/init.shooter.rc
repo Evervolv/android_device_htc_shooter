@@ -7,6 +7,7 @@ on early-init
     # for backwards compatibility
     symlink /storage/sdcard0 /sdcard
     symlink /storage/sdcard0 /mnt/sdcard
+    export EXTERNAL_STORAGE /storage/sdcard0
 
     #8x60: firmware
     rm /vendor
@@ -44,7 +45,7 @@ on early-init
 on init
     mkdir /devlog 0700 root root
 
-on emmc-fs
+on fs
     # mount all mcc partitions
     mount_all /fstab.shooter
 
