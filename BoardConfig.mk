@@ -44,9 +44,11 @@ TARGET_USES_OVERLAY := true
 # Hardware Rendering
 TARGET_USES_PMEM := true
 
-# FFC Camera
+# Camera
 BOARD_HAVE_HTC_FFC :=true
+BOARD_HTC_3D_SUPPORT := true
 
+# Wimax
 COMMON_GLOBAL_CFLAGS += -DBOARD_HAVE_SQN_WIMAX
 BOARD_HAVE_SQN_WIMAX := true
 
