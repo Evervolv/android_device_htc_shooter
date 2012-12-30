@@ -52,7 +52,9 @@ BOARD_HTC_3D_SUPPORT := true
 COMMON_GLOBAL_CFLAGS += -DBOARD_HAVE_SQN_WIMAX
 BOARD_HAVE_SQN_WIMAX := true
 
+# Kernel
 TARGET_PREBUILT_KERNEL := device/htc/shooter/prebuilt/root/kernel
+TARGET_KERNEL_SOURCE   := kernel/htc/msm8660
 TARGET_KERNEL_CONFIG   := shooter_defconfig
 BUILD_KERNEL           := true
 

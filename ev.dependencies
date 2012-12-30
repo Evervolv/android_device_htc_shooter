@@ -1,7 +1,7 @@
 [
     {
-        "repository": "android_kernel_htc_shooter",
-        "target_path": "kernel/htc/shooter",
+        "repository": "android_kernel_htc_msm8660",
+        "target_path": "kernel/htc/msm8660",
         "branch": "jellybean"
     }
 ]
