@@ -241,14 +241,6 @@ service bugreport /system/bin/dumpstate -d -v -o /sdcard/bugreports/bugreport
     oneshot
     keycodes 114 115
 
-service hciattach /system/bin/brcm_patchram_plus --enable_hci \
-    --tosleep 50000 --baudrate 3000000 --use_baudrate_for_download \
-    --patchram /vendor/firmware/bcm4329.hcd /dev/ttyHS0
-    class main
-    user bluetooth
-    group bluetooth net_bt_admin
-    disabled
-
 service rmt_storage /system/bin/rmt_storage /dev/block/mmcblk0p26 /dev/block/mmcblk0p27 /dev/block/mmcblk0p19
     class core
     user root
