@@ -25,7 +25,14 @@
          the com.android.internal.telephony.Phone interface (false). -->
     <bool name="send_mic_mute_to_AudioManager">true</bool>
 
-    <!-- Determines if device implements a noise suppression device for in call audio-->
+    <!-- This device implements a noise suppression device for in call audio -->
     <bool name="has_in_call_noise_suppression">true</bool>
+
+    <!-- Sprint Message Wait Indicator Quirk
+         If true, message wait indicators are hidden by default on this device
+         unless the user enables it in Call Settings.  This quirk is necessary
+         for the "Phantom Voicemail" issue where notifications that are
+         impossible to dismiss on the Sprint network. -->
+    <bool name="sprint_mwi_quirk">true</bool>
 
 </resources>
