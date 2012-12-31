@@ -56,10 +56,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.telephony.cdma.xml:system/etc/permissions/android.hardware.telephony.cdma.xml
 
-# GPS and Lights
+# GPS
 PRODUCT_PACKAGES += \
-    gps.shooter \
-    lights.shooter
+    gps.shooter
 
 ## qcom/media
 PRODUCT_PACKAGES += \
