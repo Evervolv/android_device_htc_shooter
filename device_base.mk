@@ -148,9 +148,6 @@ endif
 
 $(call inherit-product-if-exists, vendor/htc/shooter/shooter-vendor.mk)
 
-PRODUCT_COPY_FILES += \
-     device/htc/shooter/prebuilt/system/etc/media_profiles.xml:system/etc/media_profiles.xml
-
 # media profiles and capabilities spec
 $(call inherit-product, device/htc/shooter/media_a1026.mk)
 
