@@ -60,20 +60,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     gps.shooter
 
-## qcom/media
-PRODUCT_PACKAGES += \
-    libstagefrighthw
-#    libOmxCore \
-#    libOmxVdec \
-#    libOmxVenc \
-#    libdivxdrmdecrypt
-
-## misc
-PRODUCT_PACKAGES += \
-    gps.shooter \
-    librs_jni \
-    com.android.future.usb.accessory
-
 # Temporary adb hack
 ADDITIONAL_DEFAULT_PROPERTIES += \
     persist.service.adb.enable=1
