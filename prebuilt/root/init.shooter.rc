@@ -9,36 +9,6 @@ on early-init
     symlink /storage/sdcard0 /mnt/sdcard
     export EXTERNAL_STORAGE /storage/sdcard0
 
-    #8x60: firmware
-    rm /vendor
-    mkdir /vendor 0771 system system
-    mkdir /vendor/firmware 0771 system system
-    mkdir /vendor/firmware/misc 0771 system system
-
-    wait /dev/block/mmcblk0p18
-    mount vfat /dev/block/mmcblk0p18 /vendor/firmware/misc ro shortname=lower
-
-    symlink /vendor/firmware/misc/q6.b07 /vendor/firmware/q6.b07
-    symlink /vendor/firmware/misc/q6.b06 /vendor/firmware/q6.b06
-    symlink /vendor/firmware/misc/q6.b05 /vendor/firmware/q6.b05
-    symlink /vendor/firmware/misc/q6.b04 /vendor/firmware/q6.b04
-    symlink /vendor/firmware/misc/q6.b03 /vendor/firmware/q6.b03
-    symlink /vendor/firmware/misc/q6.b02 /vendor/firmware/q6.b02
-    symlink /vendor/firmware/misc/q6.b01 /vendor/firmware/q6.b01
-    symlink /vendor/firmware/misc/q6.b00 /vendor/firmware/q6.b00
-    symlink /vendor/firmware/misc/q6.mdt /vendor/firmware/q6.mdt
-    symlink /vendor/firmware/misc/modem.b09 /vendor/firmware/modem.b09
-    symlink /vendor/firmware/misc/modem.b08 /vendor/firmware/modem.b08
-    symlink /vendor/firmware/misc/modem.b07 /vendor/firmware/modem.b07
-    symlink /vendor/firmware/misc/modem.b06 /vendor/firmware/modem.b06
-    symlink /vendor/firmware/misc/modem.b05 /vendor/firmware/modem.b05
-    symlink /vendor/firmware/misc/modem.b04 /vendor/firmware/modem.b04
-    symlink /vendor/firmware/misc/modem.b03 /vendor/firmware/modem.b03
-    symlink /vendor/firmware/misc/modem.b02 /vendor/firmware/modem.b02
-    symlink /vendor/firmware/misc/modem.b01 /vendor/firmware/modem.b01
-    symlink /vendor/firmware/misc/modem.b00 /vendor/firmware/modem.b00
-    symlink /vendor/firmware/misc/modem.mdt /vendor/firmware/modem.mdt
-
     # Force loading of modem and Q6 images
     write /dev/smd_pkt_loopback 1
 
@@ -50,18 +20,6 @@ on fs
     mount_all /fstab.shooter
 
     setprop ro.crypto.tmpfs_options size=128m,mode=0771,uid=1000,gid=1000
-
-    symlink /system/vendor/firmware/fw_bcmdhd.bin /vendor/firmware/fw_bcmdhd.bin
-    symlink /system/vendor/firmware/fw_bcmdhd_apsta.bin /vendor/firmware/fw_bcmdhd_apsta.bin
-    symlink /system/vendor/firmware/fw_bcmdhd_p2p.bin /vendor/firmware/fw_bcmdhd_p2p.bin
-    symlink /system/vendor/firmware/bcm4329.hcd /vendor/firmware/bcm4329.hcd
-
-    # HACK: We need to re-do the firmware
-    # mounting / symlinking this will do for now.
-    symlink /system/vendor/lib /vendor/lib
-
-    mkdir /vendor/etc 0771 system system
-    symlink /system/vendor/etc/audio_effects.conf /vendor/etc/audio_effects.conf
 
 on post-fs-data
     # double check the perms and set owner
