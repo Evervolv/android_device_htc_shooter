@@ -29,6 +29,8 @@
 
 # inherit from common msm8660
 -include device/htc/msm8660-common/BoardConfigCommon.mk
+# Broadcom specific config
+-include device/htc/msm8660-common/bcm.mk
 
 TARGET_BOOTLOADER_BOARD_NAME := shooter
 TARGET_PROVIDES_LIBRIL := vendor/htc/shooter/proprietary/libril.so
@@ -60,11 +62,6 @@ BUILD_KERNEL           := true
 
 # Custom lun file path
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/class/android_usb/android0/f_mass_storage/lun0/file
-
-# Wifi
-BOARD_LEGACY_NL80211_STA_EVENTS := true
-WIFI_DRIVER_MODULE_NAME          := bcmdhd
-WIFI_DRIVER_MODULE_PATH          := "/system/lib/modules/bcmdhd.ko"
 
 # cat /proc/emmc
 #dev:        size     erasesize name
