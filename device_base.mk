@@ -111,9 +111,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/htc/shooter/firmware/default_bak.acdb:system/etc/firmware/default_bak.acdb
 
-# QC thermald config
-PRODUCT_COPY_FILES += device/htc/shooter/prebuilt/thermald.conf:system/etc/thermald.conf
-
 # we have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
 
