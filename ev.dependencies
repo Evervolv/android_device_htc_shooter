@@ -12,7 +12,7 @@
         "dep_type": "device"
     },
     {
-        "repository": "android_hardware_audio-caf",
+        "repository": "android_hardware_qcom_audio-caf",
         "target_path": "hardware/qcom/audio-caf",
         "branch": "jellybean",
         "dep_type": "hardware"
