@@ -57,7 +57,7 @@ BOARD_HAVE_SQN_WIMAX := true
 # Kernel
 TARGET_PREBUILT_KERNEL := device/htc/shooter/prebuilt/root/kernel
 TARGET_KERNEL_SOURCE   := kernel/htc/msm8660
-TARGET_KERNEL_CONFIG   := shooter_defconfig
+TARGET_KERNEL_CONFIG   := ev_ubuntu_shooter_defconfig
 BUILD_KERNEL           := true
 
 # Custom lun file path
