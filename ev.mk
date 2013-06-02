@@ -1,5 +1,4 @@
 # Inherit AOSP device configuration for inc.
-#$(call inherit-product, device/htc/shooter/full_shooter.mk)
 $(call inherit-product, device/htc/shooter/device.mk)
 
 # Inherit some common evervolv stuff.
@@ -14,7 +13,7 @@ $(call inherit-product, vendor/ev/config/wimax.mk)
 PRODUCT_NAME := ev_shooter
 PRODUCT_BRAND := sprint
 PRODUCT_DEVICE := shooter
-PRODUCT_MODEL := PG86100
+PRODUCT_MODEL := Evo 3D CDMA
 PRODUCT_MANUFACTURER := HTC
 PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=htc_shooter BUILD_FINGERPRINT="sprint/htc_shooter/shooter:4.0.3/IML74K/130920.2:user/release-keys" PRIVATE_BUILD_DESC="2.08.651.2 CL130920 release-keys"
 
