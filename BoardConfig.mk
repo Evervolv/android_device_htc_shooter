@@ -29,8 +29,6 @@
 
 TARGET_BOOTLOADER_BOARD_NAME := shooter
 
-TARGET_PROVIDES_LIBRIL := vendor/htc/shooter/proprietary/libril.so
-
 BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := shooter
 
 # Wimax
@@ -40,6 +38,9 @@ BOARD_HAVE_SQN_WIMAX := true
 # Kernel
 BOARD_KERNEL_CMDLINE := console=ttyHSL0 androidboot.hardware=shooter no_console_suspend=1
 TARGET_KERNEL_CONFIG   := shooter_defconfig
+
+# Releasetools
+TARGET_RELEASETOOLS_EXTENSIONS := device/htc/shooter
 
 # cat /proc/emmc
 #dev:        size     erasesize name
@@ -62,6 +63,3 @@ TARGET_KERNEL_CONFIG   := shooter_defconfig
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 435941376
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 1394606080
 BOARD_BOOTIMAGE_PARTITION_SIZE := 5242880
-
-# Releasetools
-TARGET_RELEASETOOLS_EXTENSIONS := device/htc/shooter
