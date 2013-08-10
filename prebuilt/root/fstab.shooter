@@ -1,8 +1,14 @@
 # Android fstab file.
-#<src>			<mnt_point>	<type>	<mnt_flags>						<fs_mgr_flags>
+#<src>			                            <mnt_point><type>	<mnt_flags>						                    <fs_mgr_flags>
 # load these in early-init instead
 
-/dev/block/mmcblk0p23	/system		ext4	ro,data=ordered,noauto_da_alloc				wait
-/dev/block/mmcblk0p24	/data		ext4	noatime,nosuid,nodev,data=ordered,noauto_da_alloc	wait
-/dev/block/mmcblk0p25	/cache		ext4	noatime,nosuid,nodev,data=ordered,noauto_da_alloc	wait
-/dev/block/mmcblk0p28	/devlog		ext4	noatime,nosuid,nodev,data=ordered,noauto_da_alloc	wait
+/dev/block/mmcblk0p21	                    /boot		        emmc	defaults                                            defaults
+/dev/block/mmcblk0p22	                    /recovery	        emmc	defaults                                            defaults
+/dev/block/mmcblk0p23	                    /system		        ext4	ro,noatime,data=ordered,noauto_da_alloc             wait
+/dev/block/mmcblk0p24	                    /data		        ext4	noatime,nosuid,nodev,data=ordered,noauto_da_alloc   wait,encryptable=footer
+/dev/block/mmcblk0p25	                    /cache		        ext4	noatime,nosuid,nodev,data=ordered,noauto_da_alloc   wait
+/dev/block/mmcblk0p28	                    /devlog		        ext4	noatime,nosuid,nodev,data=ordered,noauto_da_alloc   wait
+
+# sdcard
+/devices/platform/msm_sdcc.3/mmc_host/mmc1	/storage/sdcard0	auto	defaults	                                        voldmanaged=sdcard:auto
+/devices/platform/msm_hsusb.0/usb1		    /storage/usbdisk	auto	defaults	                                        voldmanaged=usbdisk:auto

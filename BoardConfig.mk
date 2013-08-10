@@ -39,6 +39,9 @@ BOARD_HAVE_SQN_WIMAX := true
 BOARD_KERNEL_CMDLINE := console=ttyHSL0 androidboot.hardware=shooter no_console_suspend=1
 TARGET_KERNEL_CONFIG   := shooter_defconfig
 
+TARGET_RECOVERY_FSTAB := device/htc/shooter/prebuilt/root/fstab.shooter
+
+
 # Releasetools
 TARGET_RELEASETOOLS_EXTENSIONS := device/htc/shooter
 

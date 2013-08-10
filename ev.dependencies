@@ -2,13 +2,11 @@
     {
         "repository": "android_device_htc_msm8660-common",
         "target_path": "device/htc/msm8660-common",
-        "branch": "jellybean",
         "dep_type": "device"
     },
     {
         "repository": "android_device_htc_shooter-common",
         "target_path": "device/htc/shooter-common",
-        "branch": "jellybean",
         "dep_type": "device"
     }
 ]
