@@ -93,7 +93,7 @@ on boot
 
     # flashlight
     chown system camera /sys/class/leds/flashlight/brightness
-    chmod 0660 /sys/class/leds/flashlight/brightness
+    chmod 0666 /sys/class/leds/flashlight/brightness
 
     chmod 0444 /sys/devices/platform/msm_hsusb/gadget/usb_state
 
