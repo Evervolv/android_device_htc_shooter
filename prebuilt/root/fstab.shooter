@@ -10,5 +10,4 @@
 /dev/block/mmcblk0p28	                    /devlog		        ext4	noatime,nosuid,nodev,data=ordered,noauto_da_alloc   wait
 
 # sdcard
-/devices/platform/msm_sdcc.3/mmc_host/mmc1	/storage/sdcard0	auto	defaults	                                        voldmanaged=sdcard:auto
-/devices/platform/msm_hsusb.0/usb1		    /storage/usbdisk	auto	defaults	                                        voldmanaged=usbdisk:auto
+/devices/platform/msm_sdcc.3/mmc_host/mmc1	auto            	auto	defaults	                                        voldmanaged=sdcard0:1,noemulatedsd
