@@ -30,8 +30,8 @@ PRODUCT_COPY_FILES += \
     device/htc/shooter/prebuilt/system/etc/apns-conf.xml:system/etc/apns-conf.xml
 
 # GPS
-PRODUCT_PACKAGES += \
-    gps.shooter
+#PRODUCT_PACKAGES += \
+#    gps.shooter
 
 PRODUCT_LOCALES += en
 
