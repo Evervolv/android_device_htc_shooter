@@ -8,10 +8,5 @@
         "repository": "android_device_htc_shooter-common",
         "target_path": "device/htc/shooter-common",
         "dep_type": "device"
-    },
-    {
-        "repository": "android_packages_apps_CMWimaxSettings",
-        "target_path": "packages/apps/CMWimaxSettings",
-        "dep_type": "app"
     }
 ]

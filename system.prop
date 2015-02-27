@@ -75,3 +75,5 @@ ro.qualcomm.cabl=1
 
 # Engineer ID
 ro.engineerid = 3
+
+persist.sys.usb.config=adb

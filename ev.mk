@@ -33,7 +33,3 @@ PRODUCT_PACKAGE_OVERLAYS += \
 # Hot reboot
 PRODUCT_PACKAGE_OVERLAYS += \
     vendor/ev/overlay/hot_reboot
-
-# USB
-ADDITIONAL_DEFAULT_PROPERTIES += \
-    persist.sys.usb.config=mass_storage

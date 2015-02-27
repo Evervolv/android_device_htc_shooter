@@ -33,6 +33,9 @@ BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := shooter
 TARGET_KERNEL_NO_MODULES := true
 BOARD_USES_LEGACY_RIL := true
 
+# Use dlmalloc
+MALLOC_IMPL := dlmalloc
+
 # Wimax
 #COMMON_GLOBAL_CFLAGS += -DBOARD_HAVE_SQN_WIMAX
 #BOARD_HAVE_SQN_WIMAX := true
@@ -40,6 +43,7 @@ BOARD_USES_LEGACY_RIL := true
 # Kernel
 BOARD_KERNEL_CMDLINE := console=ttyHSL0 androidboot.hardware=shooter no_console_suspend=1
 TARGET_KERNEL_CONFIG   := shooter_defconfig
+KERNEL_TOOLCHAIN_PREFIX := $(ANDROID_BUILD_TOP)/prebuilts/gcc/$(HOST_PREBUILT_TAG)/arm/arm-eabi-4.7/bin/arm-eabi-
 
 TARGET_RECOVERY_FSTAB := device/htc/shooter/prebuilt/root/fstab.shooter
 
@@ -65,8 +69,9 @@ TARGET_RELEASETOOLS_EXTENSIONS := device/htc/shooter
 # mmcblk0p8:  00c00200 00000200 "wimax"
 # mmcblk0p33: 007ffa00 00000200 "udata_wimax"
 
-BOARD_SYSTEMIMAGE_PARTITION_SIZE := 435941376
-BOARD_USERDATAIMAGE_PARTITION_SIZE := 1394606080
+BOARD_RECOVERYIMAGE_PARTITION_SIZE := 16776192
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 838859776
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 1252770816
 BOARD_BOOTIMAGE_PARTITION_SIZE := 16777216
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01400000
 
@@ -80,4 +85,4 @@ HAVE_SELINUX := true
 TW_BRIGHTNESS_PATH := "/sys/class/leds/lcd-backlight/brightness"
 TARGET_RECOVERY_INITRC := device/htc/shooter/recovery/init.rc
 TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/platform/msm_hsusb/gadget/lun0/file"
-BOARD_CUSTOM_GRAPHICS := device/htc/shooter/recovery/graphics.c
+BOARD_CUSTOM_GRAPHICS := ../../../device/htc/shooter/recovery/graphics.c

@@ -186,7 +186,7 @@ service bugreport /system/bin/dumpstate -d -v -o /sdcard/bugreports/bugreport
     keycodes 114 115
 
 service rmt_storage /system/bin/rmt_storage /dev/block/mmcblk0p26 /dev/block/mmcblk0p27 /dev/block/mmcblk0p19
-    class core
+    class main
     user root
 
 service modem /system/bin/wireless_modem
@@ -237,9 +237,9 @@ on property:init.svc.bootanim=stopped
     write /sys/devices/platform/panel_3d/3D_mode 0
     start qcom-post-boot
 
-service 3d_camera /system/bin/3D_calibration
-    class main
-    user root
+#service 3d_camera /system/bin/3D_calibration
+ #   class main
+ #   user root
 
 # QMUX must be in multiple groups to support external process connections
 service qmuxd /system/bin/qmuxd
